@@ -1,2 +1,2 @@
 # SWPlayer
-Player as Youtube
+BunnyAuto Player
