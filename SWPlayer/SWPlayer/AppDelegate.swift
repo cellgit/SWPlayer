@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+var isAllowAutorotate = true
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,7 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.setupAppearance()
+        
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        window?.backgroundColor = UIColor.white
+        window?.rootViewController = SWMainViewController()
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -88,6 +96,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if isAllowAutorotate {
+            return [.portrait, .landscapeLeft, .landscapeRight]
+        }
+        else {
+            return .portrait
+        }
+    }
 
+}
+
+extension AppDelegate {
+    /// 设置外观 appearance 是一个协议，设置控件全局外观
+    func setupAppearance() {
+        // 设置 tabBar 的渲染颜色 - 会设置`后续[外观设置之后的]` UITabBar 的 tintColor 全部是指定的颜色
+        UITabBar.appearance().tintColor = UIColor.magenta
+    }
 }
 
