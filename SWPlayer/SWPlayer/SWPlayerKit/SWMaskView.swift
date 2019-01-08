@@ -145,7 +145,7 @@ class SWMaskView: UIView {
         else if tapsCount == 1 {
             isControlDisplaying = !isControlDisplaying
             // 单击显示或隐藏maskView上的所有控件
-            self.displayControl(isDisplaying: isControlDisplaying)
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
         }
     }
 }
@@ -309,7 +309,7 @@ extension SWMaskView {
         layoutTimeLabel()
         
         /// 初始化隐藏控件
-        displayControl(isDisplaying: isControlDisplaying)
+        displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
     }
     
     func layoutControlViews() {
@@ -558,45 +558,54 @@ extension SWMaskView {
         }
     }
     
-    func displayControl(isDisplaying: Bool) {
-        if isControlDisplaying == false {   // 如果判断状态为未显示,就隐藏控件
-            self.fullBtn.isHidden = true
-            self.playerBtn.isHidden = true
-            self.previousBtn.isHidden = true
-            self.nextBtn.isHidden = true
-            self.dismissBtn.isHidden = true
-            self.moreBtn.isHidden = true
-            self.shareBtn.isHidden = true
-            self.currentTimeLabel.isHidden = true
-            self.totalTimeLabel.isHidden = true
-            
-            if isScreenHorizontal == true {
-                self.timeSlider.isHidden = true
-            }
-            else {
-                self.timeSlider.isHidden = false
-                self.timeSlider.tintColor = UIColor.clear
-            }
-        }
-        else {  // 如果判断状态为未显示,就不隐藏控件
-            self.fullBtn.isHidden = false
-            self.playerBtn.isHidden = false
-            self.previousBtn.isHidden = false
-            self.nextBtn.isHidden = false
-            self.moreBtn.isHidden = false
-            self.shareBtn.isHidden = false
-            self.timeSlider.tintColor = UIColor.red
-            self.currentTimeLabel.isHidden = false
-            self.totalTimeLabel.isHidden = false
-            
-            if isScreenHorizontal == true {
+    func displayControl(isDisplaying: Bool, type: SWEpisodeModeEnum) {
+        switch type {
+        case .normal:
+            if isControlDisplaying == false {   // 如果判断状态为未显示,就隐藏控件
+                self.fullBtn.isHidden = true
+                self.playerBtn.isHidden = true
+                self.previousBtn.isHidden = true
+                self.nextBtn.isHidden = true
                 self.dismissBtn.isHidden = true
-                self.timeSlider.isHidden = false
+                self.moreBtn.isHidden = true
+                self.shareBtn.isHidden = true
+                self.currentTimeLabel.isHidden = true
+                self.totalTimeLabel.isHidden = true
+                
+                if isScreenHorizontal == true {
+                    self.timeSlider.isHidden = true
+                }
+                else {
+                    self.timeSlider.isHidden = false
+                    self.timeSlider.tintColor = UIColor.clear
+                }
             }
-            else {
-                self.dismissBtn.isHidden = false
-                self.timeSlider.isHidden = false
+            else {  // 如果判断状态为未显示,就不隐藏控件
+                self.fullBtn.isHidden = false
+                self.playerBtn.isHidden = false
+                self.previousBtn.isHidden = false
+                self.nextBtn.isHidden = false
+                self.moreBtn.isHidden = false
+                self.shareBtn.isHidden = false
+                self.timeSlider.tintColor = UIColor.red
+                self.currentTimeLabel.isHidden = false
+                self.totalTimeLabel.isHidden = false
+                
+                if isScreenHorizontal == true {
+                    self.dismissBtn.isHidden = true
+                    self.timeSlider.isHidden = false
+                }
+                else {
+                    self.dismissBtn.isHidden = false
+                    self.timeSlider.isHidden = false
+                }
             }
+        case .live:
+            print("live")
+        case .ad:
+            print("live")
+        default:
+            print("unknown")
         }
     }
 }
@@ -655,7 +664,7 @@ extension SWMaskView {
             delegate.sw_player_rotate_action(angle: -(Double.pi/2))
             screenControlSettings(angle: -(Double.pi/2))
         }
-        self.displayControl(isDisplaying: isControlDisplaying)
+        self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
         
         layoutControlViews()
         layoutTimeSlider()
