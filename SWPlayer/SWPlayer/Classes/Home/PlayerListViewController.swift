@@ -61,6 +61,7 @@ extension PlayerListViewController: UITableViewDataSource,UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
             let vc = PlayerTableViewController()
+            vc.delegate = self
             self.navigationController?.present(vc, animated: true, completion: nil)
         }
         else if indexPath.row == 1 {

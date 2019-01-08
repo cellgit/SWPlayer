@@ -188,12 +188,6 @@ extension SWPlayer {
 
 
 extension SWPlayer {
-//    static func formatSecondsToString(_ secounds: TimeInterval) -> String {
-//        let Min = Int(secounds / 60)
-//        let Sec = Int(secounds.truncatingRemainder(dividingBy: 60))
-//        return String(format: "%02d:%02d", Min, Sec)
-//    }
-    
     static func formatSecondsToString(_ time: TimeInterval) -> String {
         let allTime: Int = Int(time)
         var hours = 0
