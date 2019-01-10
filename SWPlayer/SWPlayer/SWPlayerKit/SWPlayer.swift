@@ -9,16 +9,16 @@
 import UIKit
 import AVFoundation
 
+enum Status {
+    case unknown        // 初始状态
+    case buffering      // 加载中
+    case playing        // 播放中
+    case paused         // 暂停
+    case end            // 播放到末尾
+    case error          // 播放出错
+}
+
 class SWPlayer: NSObject {
-    
-    enum Status {
-        case unknown        // 初始状态
-        case buffering      // 加载中
-        case playing        // 播放中
-        case paused         // 暂停
-        case end            // 播放到末尾
-        case error          // 播放出错
-    }
     
     private let player = AVPlayer()
     var currentItem: AVPlayerItem?

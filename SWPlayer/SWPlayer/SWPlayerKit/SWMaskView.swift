@@ -10,7 +10,7 @@ import UIKit
 
 protocol SWMaskViewDelegate {
     func sw_player_rotate_action(angle: Double)
-    func sw_play_action(isPlaying: Bool)
+    func sw_play_action(isPlaying: Bool, isEnd: Bool)
     func sw_dismiss_action()
     func sw_fast_forward_action()
     func sw_fast_rewind_action()
@@ -73,6 +73,8 @@ class SWMaskView: UIView {
     var currentTimeLabel: UILabel!
     /// 显示全部的时间label
     var totalTimeLabel: UILabel!
+    /// 当前播放是否已结束,播放状态从结束变为播放(播放,重新播放,快退,快进,滑动杆滑动,前一个,后一个),需要设置isEnd
+    var isEnd: Bool = false
     
     
     let fullImg = UIImage.init(named: "fullscreen_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
@@ -141,9 +143,11 @@ class SWMaskView: UIView {
         if tapsCount == 2 {
             // 双击快进或快退
             if tapDirection == .right {  //快进
+                isEnd = false
                 self.delegate.sw_fast_forward_action()
             }
             else {//快退
+                isEnd = false
                 self.delegate.sw_fast_rewind_action()
             }
         }
@@ -505,22 +509,30 @@ extension SWMaskView {
     }
     
     @objc func play_action(sender: UIButton) {
-        delegate.sw_play_action(isPlaying: self.isPlaying)
-        isPlaying = !isPlaying
-        if isPlaying == true {
-            self.playerBtn.setImage(pauseImg, for: .normal)
+        if self.isEnd == true {
+            delegate.sw_play_action(isPlaying: self.isPlaying, isEnd: self.isEnd)
+            isEnd = false
         }
         else {
-            self.playerBtn.setImage(playImg, for: .normal)
+            delegate.sw_play_action(isPlaying: self.isPlaying, isEnd: self.isEnd)
+            isPlaying = !isPlaying
+            if isPlaying == true {
+                self.playerBtn.setImage(pauseImg, for: .normal)
+            }
+            else {
+                self.playerBtn.setImage(playImg, for: .normal)
+            }
         }
     }
     
     @objc func previous_action(sender: UIButton) {
         print("前一个")
+        isEnd = false
         delegate.sw_previous_action(sender: sender)
     }
     @objc func next_action(sender: UIButton) {
         print("下一个")
+        isEnd = false
         delegate.sw_next_action(sender: sender)
     }
     @objc func dismiss_action(sender: UIButton) {
@@ -538,14 +550,17 @@ extension SWMaskView {
 
     @objc func progressSliderTouchBegan(sender: UISlider) {
         print("SliderTouchBegan== \(sender.value)")
+        isEnd = false
         sliderDelegate.sw_player_slider_touch_Began(sender: sender)
     }
     @objc func progressSliderValueChanged(sender: UISlider) {
         print("SliderValueChanged== \(sender.value)")
+        isEnd = false
         sliderDelegate.sw_player_slider_value_chnaged(sender: sender)
     }
     @objc func progressSliderTouchEnded(sender: UISlider) {
         print("SliderTouchEnded== \(sender.value)")
+        isEnd = false
         sliderDelegate.sw_player_slider_touch_end(sender: sender)
     }
     
@@ -673,5 +688,38 @@ extension SWMaskView {
         layoutControlViews()
         layoutTimeSlider()
         layoutTimeLabel()
+    }
+}
+
+/// 播放状态进行中status引起的改变
+extension SWMaskView {
+    func statusDidChanged(status: Status) {
+        
+        if status == .end {
+            isEnd = true
+        }
+        
+        switch status {
+        case .paused:
+            if isPlaying == true {
+                print("paused")
+                self.playerBtn.setImage(playImg, for: .normal)
+                isPlaying = false
+            }
+        case .playing:
+            if isPlaying == false {
+                print("playing")
+                self.playerBtn.setImage(pauseImg, for: .normal)
+                isPlaying = true
+            }
+        case .end:
+            if isPlaying == true {
+                print("paused")
+                self.playerBtn.setImage(playImg, for: .normal)
+                isPlaying = false
+            }
+        default:
+            break
+        }
     }
 }

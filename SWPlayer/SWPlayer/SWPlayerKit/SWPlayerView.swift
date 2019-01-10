@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 
+/// 快进或快退的时长绝对值
+let FastSeekSeconds: Double = 10
+
 /// 屏幕的方向
 enum SWScreenDirectionEnum {
     case right
@@ -26,7 +29,6 @@ enum SWPlayerControlEnum {
     case add
     case unknown
 }
-
 
 protocol SWPlayerControlDelegate {
     func sw_control_action(_ control: SWPlayerControlEnum)
@@ -75,6 +77,7 @@ class SWPlayerView: UIView {
     func playingProgress() {
         self.player.statusDidChangeHandler = { status in
             print("status ==== \(status)")
+            self.playerMaskView.statusDidChanged(status: status)
         }
         self.player.playedDurationDidChangeHandler = { (played, total) in
 //            print("------===---===\(played)/\(total)")
@@ -100,32 +103,37 @@ extension SWPlayerView: SWMaskViewDelegate {
     }
     func sw_fast_forward_action() {
         print("快进 10 seconds")
-        let durationSeconds : Double = 10
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }
-        self.player.seek(to: currentTime + durationSeconds)
+        self.player.seek(to: currentTime + FastSeekSeconds)
     }
     
     func sw_fast_rewind_action() {
         print("快退 10 seconds")
-        let durationSeconds : Double = -10
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }
-        self.player.seek(to: currentTime + durationSeconds)
+        self.player.seek(to: currentTime + (-FastSeekSeconds))
     }
     
     func sw_dismiss_action() {
         delegate.sw_control_action(.dismiss)
     }
     
-    func sw_play_action(isPlaying: Bool) {
-        if isPlaying == false {
-            self.player.play()
+    func sw_play_action(isPlaying: Bool, isEnd: Bool) {
+        if isEnd == false {
+            if isPlaying == false {
+                self.player.play()
+            }
+            else {
+                self.player.pause()
+            }
         }
         else {
-            self.player.pause()
+            /// replay
+            self.player.seek(to: 0)
+            self.player.play()
         }
     }
     
