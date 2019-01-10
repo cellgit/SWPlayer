@@ -13,8 +13,6 @@ enum SWScreenEnum {
     case notch      /// 刘海屏幕:全面屏,如iPhoneX
 }
 
-
-
 public extension UIDevice {
     
     static var hardwareMachine: String {

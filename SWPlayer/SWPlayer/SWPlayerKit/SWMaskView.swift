@@ -11,9 +11,14 @@ import UIKit
 protocol SWMaskViewDelegate {
     func sw_player_rotate_action(angle: Double)
     func sw_play_action(isPlaying: Bool)
-    func sw_dismiss_vc_action()
+    func sw_dismiss_action()
     func sw_fast_forward_action()
     func sw_fast_rewind_action()
+    
+    func sw_more_function_action(sender: UIButton)
+    func sw_next_action(sender: UIButton)
+    func sw_previous_action(sender: UIButton)
+    func sw_share_action(sender: UIButton)
 }
 
 protocol SWPlayerSliderDelegate {
@@ -511,38 +516,37 @@ extension SWMaskView {
     }
     
     @objc func previous_action(sender: UIButton) {
-        /// 前一个
         print("前一个")
+        delegate.sw_previous_action(sender: sender)
     }
     @objc func next_action(sender: UIButton) {
-        /// 下一个
         print("下一个")
+        delegate.sw_next_action(sender: sender)
     }
     @objc func dismiss_action(sender: UIButton) {
-        /// dismiss控制器
         print("dismiss控制器")
-        delegate.sw_dismiss_vc_action()
+        delegate.sw_dismiss_action()
     }
     @objc func more_action(sender: UIButton) {
-        /// more function
         print("more function")
+        delegate.sw_more_function_action(sender: sender)
     }
     @objc func share_action(sender: UIButton) {
-        /// share function
         print("share function")
+        delegate.sw_share_action(sender: sender)
     }
-    
+
     @objc func progressSliderTouchBegan(sender: UISlider) {
         print("SliderTouchBegan== \(sender.value)")
-        self.sliderDelegate.sw_player_slider_touch_Began(sender: sender)
+        sliderDelegate.sw_player_slider_touch_Began(sender: sender)
     }
     @objc func progressSliderValueChanged(sender: UISlider) {
         print("SliderValueChanged== \(sender.value)")
-        self.sliderDelegate.sw_player_slider_value_chnaged(sender: sender)
+        sliderDelegate.sw_player_slider_value_chnaged(sender: sender)
     }
     @objc func progressSliderTouchEnded(sender: UISlider) {
         print("SliderTouchEnded== \(sender.value)")
-        self.sliderDelegate.sw_player_slider_touch_end(sender: sender)
+        sliderDelegate.sw_player_slider_touch_end(sender: sender)
     }
     
     func screenControlSettings(angle: Double) {

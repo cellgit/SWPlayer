@@ -133,6 +133,8 @@
 		F22997BF21E1EEC00040FEEE /* PlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22997BE21E1EEC00040FEEE /* PlayerTableViewController.swift */; };
 		F22997C121E1EEED0040FEEE /* PlayerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22997C021E1EEED0040FEEE /* PlayerTableView.swift */; };
 		F22997C321E4E1720040FEEE /* SWPlayerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22997C221E4E1720040FEEE /* SWPlayerMode.swift */; };
+		F23EA35521E6EB9F007336CF /* SWTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA35421E6EB9F007336CF /* SWTimer.swift */; };
+		F23EA35721E6F2FB007336CF /* SWScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA35621E6F2FB007336CF /* SWScreen.swift */; };
 		F2D0658921E1C35E00B11F03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0658821E1C35E00B11F03 /* AppDelegate.swift */; };
 		F2D0659121E1C35E00B11F03 /* SWPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2D0658F21E1C35E00B11F03 /* SWPlayer.xcdatamodeld */; };
 		F2D0659321E1C36000B11F03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2D0659221E1C36000B11F03 /* Assets.xcassets */; };
@@ -285,6 +287,8 @@
 		F22997BE21E1EEC00040FEEE /* PlayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewController.swift; sourceTree = "<group>"; };
 		F22997C021E1EEED0040FEEE /* PlayerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableView.swift; sourceTree = "<group>"; };
 		F22997C221E4E1720040FEEE /* SWPlayerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPlayerMode.swift; sourceTree = "<group>"; };
+		F23EA35421E6EB9F007336CF /* SWTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTimer.swift; sourceTree = "<group>"; };
+		F23EA35621E6F2FB007336CF /* SWScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWScreen.swift; sourceTree = "<group>"; };
 		F2D0658521E1C35E00B11F03 /* SWPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D0658821E1C35E00B11F03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2D0659021E1C35E00B11F03 /* SWPlayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SWPlayer.xcdatamodel; sourceTree = "<group>"; };
@@ -358,6 +362,8 @@
 				F22996C021E1EC960040FEEE /* SWTimeSlider.swift */,
 				F22996C421E1EC960040FEEE /* DeviceModel.swift */,
 				F22997C221E4E1720040FEEE /* SWPlayerMode.swift */,
+				F23EA35421E6EB9F007336CF /* SWTimer.swift */,
+				F23EA35621E6F2FB007336CF /* SWScreen.swift */,
 				F22996C521E1EC960040FEEE /* icons */,
 			);
 			path = SWPlayerKit;
@@ -835,8 +841,10 @@
 				F22996BD21E1E9030040FEEE /* PlayerListViewController.swift in Sources */,
 				F2D0659121E1C35E00B11F03 /* SWPlayer.xcdatamodeld in Sources */,
 				F229973C21E1EC960040FEEE /* SWTimeSlider.swift in Sources */,
+				F23EA35721E6F2FB007336CF /* SWScreen.swift in Sources */,
 				F229974021E1EC960040FEEE /* DeviceModel.swift in Sources */,
 				F22997C121E1EEED0040FEEE /* PlayerTableView.swift in Sources */,
+				F23EA35521E6EB9F007336CF /* SWTimer.swift in Sources */,
 				F2D0658921E1C35E00B11F03 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

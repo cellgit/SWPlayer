@@ -16,18 +16,27 @@ enum SWScreenDirectionEnum {
     case portrait
 }
 
-protocol SWPlayerViewDelegate {
-    func sw_dismiss_action()
+/// 控件功能枚举
+enum SWPlayerControlEnum {
+    case previous
+    case next
+    case dismiss
+    case more
+    case share
+    case add
+    case unknown
 }
-protocol SWScreenDirectionDelegate {
+
+
+protocol SWPlayerControlDelegate {
+    func sw_control_action(_ control: SWPlayerControlEnum)
     func sw_screen_direction_action(direction: SWScreenDirectionEnum)
 }
 
 class SWPlayerView: UIView {
     
     private(set) var player = SWPlayer()
-    var directionDelegate: SWScreenDirectionDelegate!
-    
+    var delegate: SWPlayerControlDelegate!
     
     override class var layerClass: AnyClass {
         get {
@@ -35,7 +44,6 @@ class SWPlayerView: UIView {
         }
     }
     
-    var delegate: SWPlayerViewDelegate!
     var playerMaskView: SWMaskView!
     var playerLayer: AVPlayerLayer!
     /// 竖屏是playerView的frame
@@ -50,11 +58,6 @@ class SWPlayerView: UIView {
         self.playerMaskView = setupMaskView() as? SWMaskView
         self.addSubview(playerMaskView)
         self.verFrame = frame
-        
-//        self.player.playedDurationDidChangeHandler = { (played, total) in
-//            print("------===---===\(played)/\(total)")
-//        }
-        
         playingProgress()
     }
     
@@ -76,13 +79,25 @@ class SWPlayerView: UIView {
         self.player.playedDurationDidChangeHandler = { (played, total) in
 //            print("------===---===\(played)/\(total)")
             self.playerMaskView.timeSlider.value = Float(played/total)
-            self.playerMaskView.currentTimeLabel.text = SWPlayer.formatSecondsToString(played)
-            self.playerMaskView.totalTimeLabel.text = SWPlayer.formatSecondsToString(total)
+            self.playerMaskView.currentTimeLabel.text = SWTimer.formatSecondsToString(played)
+            self.playerMaskView.totalTimeLabel.text = SWTimer.formatSecondsToString(total)
         }
     }
 }
 
 extension SWPlayerView: SWMaskViewDelegate {
+    func sw_more_function_action(sender: UIButton) {
+        delegate.sw_control_action(.more)
+    }
+    func sw_next_action(sender: UIButton) {
+        delegate.sw_control_action(.next)
+    }
+    func sw_previous_action(sender: UIButton) {
+        delegate.sw_control_action(.previous)
+    }
+    func sw_share_action(sender: UIButton) {
+        delegate.sw_control_action(.share)
+    }
     func sw_fast_forward_action() {
         print("快进 10 seconds")
         let durationSeconds : Double = 10
@@ -101,8 +116,8 @@ extension SWPlayerView: SWMaskViewDelegate {
         self.player.seek(to: currentTime + durationSeconds)
     }
     
-    func sw_dismiss_vc_action() {
-        delegate.sw_dismiss_action()
+    func sw_dismiss_action() {
+        delegate.sw_control_action(.dismiss)
     }
     
     func sw_play_action(isPlaying: Bool) {
@@ -117,7 +132,7 @@ extension SWPlayerView: SWMaskViewDelegate {
     func sw_player_rotate_action(angle: Double) {
         if angle < 0 {
             if SWScreenDirection == .right {
-                directionDelegate.sw_screen_direction_action(direction: .left)
+                delegate.sw_screen_direction_action(direction: .left)
                 self.playerMaskView.frame = self.bounds
                 UIView.animate(withDuration: 0.3) {
                     self.transform = CGAffineTransform.identity
@@ -127,7 +142,7 @@ extension SWPlayerView: SWMaskViewDelegate {
                 }
             }
             else {
-                directionDelegate.sw_screen_direction_action(direction: .portrait)
+                delegate.sw_screen_direction_action(direction: .portrait)
                 self.playerMaskView.frame = self.bounds
                 UIView.animate(withDuration: 0.3) {
                     self.transform = CGAffineTransform.identity
@@ -137,7 +152,7 @@ extension SWPlayerView: SWMaskViewDelegate {
             }
         }
         else {
-            directionDelegate.sw_screen_direction_action(direction: .right)
+            delegate.sw_screen_direction_action(direction: .right)
             UIView.animate(withDuration: 0.3) {
                 self.transform = CGAffineTransform.identity
                     .rotated(by:CGFloat(0))
