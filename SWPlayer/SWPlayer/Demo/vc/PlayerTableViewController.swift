@@ -41,11 +41,12 @@ class PlayerTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        isAllowAutoRotate = true
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
-        
+        isAllowAutoRotate = false
     }
     
     

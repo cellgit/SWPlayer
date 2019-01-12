@@ -17,6 +17,11 @@ class PlayerTableView: UIView {
     var playerView: SWPlayerView!
     var viewController: PlayerTableViewController!
     
+    
+    var urlArrayM = [String]()
+    var idx: Int = 0
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupPlayer()
@@ -39,7 +44,16 @@ class PlayerTableView: UIView {
             playerView = SWPlayerView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * (9/16)))
         }
         playerView.delegate = self
-        let urlString = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        
+        urlArrayM = [ApiEpisodeUrl0,
+                     ApiEpisodeUrl1,
+                     ApiEpisodeUrl2,
+                     ApiEpisodeUrl3,
+                     ApiEpisodeUrl4]
+        
+        idx = 0
+        let urlString = urlArrayM[idx]
+//        let urlString = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
         playerView.player.replace(with: URL.init(string: urlString)!)
         playerView.player.play()
     }
@@ -123,8 +137,12 @@ extension PlayerTableView: SWPlayerControlDelegate {
         }
     }
     
-    func previousEpisode() {}
-    func nextEpisode() {}
+    func previousEpisode() {
+        changeEpisode(mode: .previous)
+    }
+    func nextEpisode() {
+        changeEpisode(mode: .next)
+    }
     func dismiss() {
         self.viewController.dismiss(animated: true) {
             self.playerView.player.pause()
@@ -137,5 +155,21 @@ extension PlayerTableView: SWPlayerControlDelegate {
     /// 屏幕旋转设置
     func sw_screen_direction_action(direction: SWScreenDirectionEnum) {
         SWScreen.shared.direction(to: direction, view: self)
+    }
+}
+
+extension PlayerTableView {
+    func changeEpisode(mode: OperationModeEnum) {
+        let idx = OperationIndex()
+        idx.index = self.idx
+        idx.mode = mode
+        let episodeIdx = idx.operatedIndex
+        print("episodeIdx1 == \(idx.operatedIndex)")
+        self.idx = episodeIdx
+        let urlString = urlArrayM[episodeIdx]
+        playerView.player.pause()
+        playerView.player.stop()
+        playerView.player.replace(with: URL.init(string: urlString)!)
+        playerView.player.play()
     }
 }
