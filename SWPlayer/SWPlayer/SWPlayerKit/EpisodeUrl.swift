@@ -31,10 +31,11 @@ enum OperationModeEnum {
     case previous
     case none
 }
-var MinIndex: Int = 0
-var MaxIndex: Int = 4
+
 /// 定义索引
 class OperationIndex: OperationIndexProtocol {
+    var minIndex: Int = 0
+    var maxIndex: Int = 0
     /// 当前播放的索引
     var index: Int = 0
     private var tempIndex: Int = 0
@@ -45,11 +46,11 @@ class OperationIndex: OperationIndexProtocol {
         get {
             switch mode {
             case .next:
-                if index < MaxIndex {
+                if index < maxIndex {
                     tempIndex = index + 1
                 }
             case .previous:
-                if index > MinIndex {
+                if index > minIndex {
                     tempIndex = index - 1
                 }
             default:

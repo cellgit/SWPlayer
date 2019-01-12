@@ -51,7 +51,6 @@ class PlayerTableView: UIView {
                      ApiEpisodeUrl3,
                      ApiEpisodeUrl4]
         
-        idx = 0
         let urlString = urlArrayM[idx]
 //        let urlString = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
         playerView.player.replace(with: URL.init(string: urlString)!)
@@ -132,6 +131,8 @@ extension PlayerTableView: SWPlayerControlDelegate {
             self.share()
         case .add:
             self.add()
+        case .more:
+            self.more()
         default:
             break
         }
@@ -151,6 +152,7 @@ extension PlayerTableView: SWPlayerControlDelegate {
     }
     func share() {}
     func add() {}
+    func more() {}
     
     /// 屏幕旋转设置
     func sw_screen_direction_action(direction: SWScreenDirectionEnum) {
@@ -161,6 +163,7 @@ extension PlayerTableView: SWPlayerControlDelegate {
 extension PlayerTableView {
     func changeEpisode(mode: OperationModeEnum) {
         let idx = OperationIndex()
+        idx.maxIndex = urlArrayM.count - 1
         idx.index = self.idx
         idx.mode = mode
         let episodeIdx = idx.operatedIndex
