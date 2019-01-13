@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-var isAllowAutorotate = true
+var isAllowAutoRotate = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if isAllowAutorotate {
+        if isAllowAutoRotate {
             return [.portrait, .landscapeLeft, .landscapeRight]
         }
         else {

@@ -14,7 +14,6 @@ protocol SWMaskViewDelegate {
     func sw_dismiss_action()
     func sw_fast_forward_action()
     func sw_fast_rewind_action()
-    
     func sw_more_function_action(sender: UIButton)
     func sw_next_action(sender: UIButton)
     func sw_previous_action(sender: UIButton)
