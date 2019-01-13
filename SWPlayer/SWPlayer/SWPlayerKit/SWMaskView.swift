@@ -619,6 +619,7 @@ extension SWMaskView {
                     self.timeSlider.isHidden = false
                 }
             }
+            /// 如果需要始终隐藏某个控件,在这里设置.isHidden = true
         case .live:
             print("live")
         case .ad:

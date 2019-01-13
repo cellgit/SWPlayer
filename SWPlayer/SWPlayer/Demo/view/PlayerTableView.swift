@@ -104,7 +104,7 @@ extension PlayerTableView: UITableViewDataSource,UITableViewDelegate {
     }
 }
 
-/// 屏幕旋转设置
+/// 屏幕上控件action
 extension PlayerTableView: SWPlayerControlDelegate {
     func sw_control_action(_ control: SWPlayerControlEnum) {
         switch control {

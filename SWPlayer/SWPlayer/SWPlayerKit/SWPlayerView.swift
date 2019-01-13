@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 /// 快进或快退的时长绝对值
-let FastSeekSeconds: Double = 10
+let kFastSeekSeconds: Double = 10
 
 /// 屏幕的方向
 enum SWScreenDirectionEnum {
@@ -106,7 +106,7 @@ extension SWPlayerView: SWMaskViewDelegate {
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }
-        self.player.seek(to: currentTime + FastSeekSeconds)
+        self.player.seek(to: currentTime + kFastSeekSeconds)
     }
     
     func sw_fast_rewind_action() {
@@ -114,7 +114,7 @@ extension SWPlayerView: SWMaskViewDelegate {
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }
-        self.player.seek(to: currentTime + (-FastSeekSeconds))
+        self.player.seek(to: currentTime + (-kFastSeekSeconds))
     }
     
     func sw_dismiss_action() {
