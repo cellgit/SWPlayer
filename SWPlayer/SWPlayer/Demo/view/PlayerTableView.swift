@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-let kNotchViewHeight: CGFloat = 44  // 刘海区域黑色遮盖视图的高度
+let kNotchViewHeight: CGFloat = 44  // 刘海区域黑色遮盖视图的高度: Notch View Height + 14 = radius value
 
 class PlayerTableView: UIView {
     let KUITableViewCell = "UITableViewCell"
