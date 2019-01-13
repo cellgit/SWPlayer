@@ -10,12 +10,12 @@ import UIKit
 import AVFoundation
 
 enum Status {
-    case unknown        // 初始状态
-    case buffering      // 加载中
-    case playing        // 播放中
-    case paused         // 暂停
-    case end            // 播放到末尾
-    case error          // 播放出错
+    case unknown        // 初始状态: initial status
+    case buffering      // 加载中: loading
+    case playing        // 播放中: playing
+    case paused         // 暂停: paused
+    case end            // 播放到末尾: end
+    case error          // 播放出错: error
 }
 
 class SWPlayer: NSObject {
@@ -160,7 +160,7 @@ extension SWPlayer {
                 switch self.player.timeControlStatus {
                 case .playing:
                     self.status = .playing
-                    print("play playing")
+//                    print("play playing")
                 case .paused:
                     self.status = .paused
                     print("play paused")
@@ -172,7 +172,7 @@ extension SWPlayer {
                 if self.player.rate != 0 {
                     if currentItem.isPlaybackLikelyToKeepUp {
                         self.status = .playing
-                        print("play playing")
+//                        print("play playing")
                     } else {
                         self.status = .buffering
                         print("play buffering")

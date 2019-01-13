@@ -9,17 +9,17 @@
 import UIKit
 import AVFoundation
 
-/// 快进或快退的时长绝对值
+/// fast forward and fast rewind ABS value
 let kFastSeekSeconds: Double = 10
 
-/// 屏幕的方向
+/// screen direction
 enum SWScreenDirectionEnum {
     case right
     case left
     case portrait
 }
 
-/// 控件功能枚举
+/// control function enum
 enum SWPlayerControlEnum {
     case previous
     case next
@@ -48,9 +48,9 @@ class SWPlayerView: UIView {
     
     var playerMaskView: SWMaskView!
     var playerLayer: AVPlayerLayer!
-    /// 竖屏是playerView的frame
+    /// the playerView frame which portrait screen
     var verFrame: CGRect!
-    /// 播放源
+    /// source item of playing
     var currentItem: AVPlayerItem?
     
     override init(frame: CGRect) {
@@ -102,7 +102,7 @@ extension SWPlayerView: SWMaskViewDelegate {
         delegate.sw_control_action(.share)
     }
     func sw_fast_forward_action() {
-        print("快进 10 seconds")
+        print("fast forward 10 seconds")
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }
@@ -110,7 +110,7 @@ extension SWPlayerView: SWMaskViewDelegate {
     }
     
     func sw_fast_rewind_action() {
-        print("快退 10 seconds")
+        print("fast rewind 10 seconds")
         guard let currentTime = self.player.currentItem?.currentTime().seconds else {
             return
         }

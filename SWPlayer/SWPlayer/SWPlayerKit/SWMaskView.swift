@@ -27,13 +27,13 @@ protocol SWPlayerSliderDelegate {
 }
 
 
-/// 判断点击区域
+/// 判断点击区域: position of taped
 enum SWTapDirection {
     case left
     case right
 }
 
-/// 全局记录屏幕方向
+/// 全局记录屏幕方向: global var of screen direction
 var SWScreenDirection = SWScreenDirectionEnum.portrait
 
 class SWMaskView: UIView {
@@ -41,38 +41,39 @@ class SWMaskView: UIView {
     public var delegate: SWMaskViewDelegate!
     public var sliderDelegate: SWPlayerSliderDelegate!
     
-    /// 是否横屏
-    var isScreenHorizontal: Bool = false
-    /// 控件是否在显示状态
+    /// 是否横屏: is landscape
+    var isLandscape: Bool = false
+//    var isScreenHorizontal: Bool = false
+    /// 控件是否在显示状态: is control displaying status
     var isControlDisplaying: Bool = false
-    /// 是否在播放状态
+    /// 是否在播放状态: is player playing status
     var isPlaying: Bool = true
     
     
-    /// 全屏切换按钮
+    /// 全屏切换按钮: full screen button
     var fullBtn: UIButton!
-    /// 播放暂停按钮
+    /// 播放暂停按钮: play and pause button
     var playerBtn: UIButton!
-    /// 前一个
+    /// 前一个: previous episode button
     var previousBtn: UIButton!
-    /// 下一个
+    /// 下一个: next episode button
     var nextBtn: UIButton!
-    /// dismiss播放控制器
+    /// dismiss播放控制器: dismiss viewController button
     var dismissBtn: UIButton!
-    /// 更多功能按钮
+    /// 更多功能按钮: more function button, you need custom the function in the called func
     var moreBtn: UIButton!
-    /// 分享按钮
+    /// 分享按钮: share button: you need custom the function in the called func
     var shareBtn: UIButton!
-    /// 进度滑竿
+    /// 进度滑竿: episode progress slider
     open var timeSlider: SWTimeSlider!
     /// load progress view
     open var progressView     = UIProgressView()
     
-    /// 显示当前播放的时间label
+    /// 显示当前播放的时间label: the label that displaying played time
     var currentTimeLabel: UILabel!
-    /// 显示全部的时间label
+    /// 显示全部的时间label: the label that displaying total time
     var totalTimeLabel: UILabel!
-    /// 当前播放是否已结束,播放状态从结束变为播放(播放,重新播放,快退,快进,滑动杆滑动,前一个,后一个),需要设置isEnd
+    /// 当前播放是否已结束,播放状态从结束变为播放(播放,重新播放,快退,快进,滑动杆滑动,前一个,后一个),需要设置isEnd: is play ended
     var isEnd: Bool = false
     
     
@@ -106,13 +107,13 @@ class SWMaskView: UIView {
     }
     
     func setupUI() {
-        /// 双击maskView
+        /// 双击maskView, double tap to fast forward or fast rewind
         let doubleTapGes = UITapGestureRecognizer.init(target: self, action: #selector(tapAction(sender:)))
         doubleTapGes.numberOfTapsRequired = 2
         doubleTapGes.numberOfTouchesRequired = 1
         self.addGestureRecognizer(doubleTapGes)
         
-        /// 单击maskView
+        /// 单击maskView: sigle tap to displaying or hidden control views
         let sigleTapGes = UITapGestureRecognizer.init(target: self, action: #selector(tapAction(sender:)))
         sigleTapGes.numberOfTapsRequired = 1
         sigleTapGes.numberOfTouchesRequired = 1
@@ -135,24 +136,24 @@ class SWMaskView: UIView {
         
         print("tapLocation ==== \(tapLocation)")
         print("numberOfTouches ==== \(numberOfTouches)")
-        let tapDirection = getTapDirection(view: self, isHorizontal: isScreenHorizontal, point: tapLocation)
+        let tapDirection = getTapDirection(view: self, isHorizontal: isLandscape, point: tapLocation)
         
         print("tapDirection===== \(tapDirection)")
         
         if tapsCount == 2 {
-            // 双击快进或快退
-            if tapDirection == .right {  //快进
+            // 双击快进或快退: double tap to fast forward or fast rewind
+            if tapDirection == .right {  //快进: fast forward
                 isEnd = false
                 self.delegate.sw_fast_forward_action()
             }
-            else {//快退
+            else {//快退: fast rewind
                 isEnd = false
                 self.delegate.sw_fast_rewind_action()
             }
         }
         else if tapsCount == 1 {
             isControlDisplaying = !isControlDisplaying
-            // 单击显示或隐藏maskView上的所有控件
+            // 单击显示或隐藏maskView上的所有控件: sigle tap to dispalying or hidden the views on maskview
             self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
         }
     }
@@ -160,12 +161,12 @@ class SWMaskView: UIView {
 
 
 extension SWMaskView {
-    ///通过点所在区域,返回left,right区域,左侧或右侧
+    ///通过点所在区域,返回left,right区域,左侧或右侧: judge taped left or right via position
     
     func getTapDirection(view: UIView, isHorizontal: Bool, point: CGPoint) -> SWTapDirection {
         let bounds = view.bounds
         print("viewBounds=== \(bounds)")
-        if isHorizontal == false {  // 竖屏
+        if isHorizontal == false {  // 竖屏: portrait
             //
             if point.x > bounds.width / 2 {
                 return SWTapDirection.right
@@ -174,7 +175,7 @@ extension SWMaskView {
                 return SWTapDirection.left
             }
         }
-        else {  // 横屏
+        else {  // 横屏: landscape
             if point.x > bounds.width / 2 {
                 return SWTapDirection.right
             }
@@ -316,7 +317,7 @@ extension SWMaskView {
         layoutTimeSlider()
         layoutTimeLabel()
         
-        /// 初始化隐藏控件
+        /// 初始化隐藏控件: initial hidden the control views
         displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
     }
     
@@ -347,9 +348,9 @@ extension SWMaskView {
         // fullBtn: 关闭系统的自定义视图布局
         fullBtn.translatesAutoresizingMaskIntoConstraints = false
         
-        if isScreenHorizontal == true && UIDevice.modelScreen == "1"{
+        if isLandscape == true && UIDevice.modelScreen == "1"{
             
-            /// 横平时根据是否是全面屏进行控件布局
+            /// 横平时根据是否是全面屏进行控件布局: layout views when landscape
             //fullBtn layout
             self.addConstraint(NSLayoutConstraint.init(item: fullBtn, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -70))
             self.addConstraint(NSLayoutConstraint.init(item: fullBtn, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -10))
@@ -366,9 +367,7 @@ extension SWMaskView {
         
         
         moreBtn.translatesAutoresizingMaskIntoConstraints = false
-        if isScreenHorizontal == true && UIDevice.modelScreen == "1" {
-            
-            /// TODO: 横平时根据是否是全面屏进行控件布局
+        if isLandscape == true && UIDevice.modelScreen == "1" {
             //moreBtn layout
             self.addConstraint(NSLayoutConstraint.init(item: moreBtn, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -70))
             self.addConstraint(NSLayoutConstraint.init(item: moreBtn, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 5))
@@ -409,7 +408,7 @@ extension SWMaskView {
         
         currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         let height = NSLayoutConstraint.init(item: currentTimeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
-        if isScreenHorizontal == true && UIDevice.modelScreen == "1" {
+        if isLandscape == true && UIDevice.modelScreen == "1" {
             let left = NSLayoutConstraint.init(item: currentTimeLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 20)
             let right = NSLayoutConstraint.init(item: currentTimeLabel, attribute: .right, relatedBy: .equal, toItem: timeSlider, attribute: .left, multiplier: 1, constant: -20)
             let center_Y = NSLayoutConstraint.init(item: currentTimeLabel, attribute: .centerY, relatedBy: .equal, toItem: fullBtn, attribute: .centerY, multiplier: 1, constant: 0)
@@ -425,7 +424,7 @@ extension SWMaskView {
         
         totalTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         let totalheight = NSLayoutConstraint.init(item: totalTimeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
-        if isScreenHorizontal == true && UIDevice.modelScreen == "1" {
+        if isLandscape == true && UIDevice.modelScreen == "1" {
             if UIDevice.modelScreen == "1" {
                 let left = NSLayoutConstraint.init(item: totalTimeLabel, attribute: .left, relatedBy: .equal, toItem: timeSlider, attribute: .right, multiplier: 1, constant: 20)
                 let right = NSLayoutConstraint.init(item: totalTimeLabel, attribute: .right, relatedBy: .equal, toItem: fullBtn, attribute: .left, multiplier: 1, constant: -10)
@@ -461,7 +460,7 @@ extension SWMaskView {
             }
             timeSlider.translatesAutoresizingMaskIntoConstraints = false
             let height = NSLayoutConstraint.init(item: timeSlider, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
-            if isScreenHorizontal == true {
+            if isLandscape == true {
                 if UIDevice.modelScreen == "1" {
                     /// TODO: 需要区分是否是全面屏
                     let left = NSLayoutConstraint.init(item: timeSlider, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 130)
@@ -491,8 +490,8 @@ extension SWMaskView {
     }
     
     @objc func change_screen_action(sender: UIButton) {
-        self.isScreenHorizontal = !self.isScreenHorizontal
-        if self.isScreenHorizontal == true {
+        self.isLandscape = !self.isLandscape
+        if self.isLandscape == true {
             SWScreenDirection = SWScreenDirectionEnum.left
             delegate.sw_player_rotate_action(angle: (Double.pi/2))
             screenControlSettings(angle: (Double.pi/2))
@@ -590,7 +589,7 @@ extension SWMaskView {
                 self.currentTimeLabel.isHidden = true
                 self.totalTimeLabel.isHidden = true
                 
-                if isScreenHorizontal == true {
+                if isLandscape == true {
                     self.timeSlider.isHidden = true
                 }
                 else {
@@ -609,7 +608,7 @@ extension SWMaskView {
                 self.currentTimeLabel.isHidden = false
                 self.totalTimeLabel.isHidden = false
                 
-                if isScreenHorizontal == true {
+                if isLandscape == true {
                     self.dismissBtn.isHidden = true
                     self.timeSlider.isHidden = false
                 }
@@ -647,17 +646,17 @@ extension SWMaskView {
         case UIDeviceOrientation.landscapeLeft:
             print("屏幕向左横置")
             SWScreenDirection = SWScreenDirectionEnum.left
-            self.isScreenHorizontal = true
+            self.isLandscape = true
             change_screen_direction()
         case UIDeviceOrientation.landscapeRight:
             print("屏幕向右横置")
             SWScreenDirection = SWScreenDirectionEnum.right
-            self.isScreenHorizontal = true
+            self.isLandscape = true
             change_screen_direction()
         case UIDeviceOrientation.portrait:
             print("屏幕直立")
             SWScreenDirection = SWScreenDirectionEnum.portrait
-            self.isScreenHorizontal = false
+            self.isLandscape = false
             change_screen_direction()
         case UIDeviceOrientation.portraitUpsideDown:
             print("屏幕直立,上下颠倒")
@@ -669,7 +668,7 @@ extension SWMaskView {
     }
     
     func change_screen_direction() {
-        if self.isScreenHorizontal == true {
+        if self.isLandscape == true {
             if SWScreenDirection == .left {
                 delegate.sw_player_rotate_action(angle: (Double.pi/2))
                 screenControlSettings(angle: (Double.pi/2))

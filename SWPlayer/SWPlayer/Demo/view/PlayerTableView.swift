@@ -162,12 +162,12 @@ extension PlayerTableView: SWPlayerControlDelegate {
 
 extension PlayerTableView {
     func changeEpisode(mode: OperationModeEnum) {
-        let idx = OperationIndex()
+        let idx = IndexOperation()
         idx.maxIndex = urlArrayM.count - 1
         idx.index = self.idx
         idx.mode = mode
-        let episodeIdx = idx.operatedIndex
-        print("episodeIdx1 == \(idx.operatedIndex)")
+        let episodeIdx = idx.indexOperated
+        print("episodeIdx1 == \(idx.indexOperated)")
         self.idx = episodeIdx
         let urlString = urlArrayM[episodeIdx]
         playerView.player.pause()
