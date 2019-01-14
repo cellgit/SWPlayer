@@ -8,28 +8,26 @@
 
 import UIKit
 
-// 定义协议
-protocol IndexOperationProtocol {
-    var indexOperated: Int {get}
-}
 enum OperationModeEnum {
     case next
     case previous
     case none
 }
 
-/// 定义索引
-class IndexOperation: IndexOperationProtocol {
+struct IndexOperation {
+    /// first index
     var minIndex: Int = 0
+    /// last index
     var maxIndex: Int = 0
-    /// 当前播放的索引
+    /// index before changed
     var index: Int = 0
-    private var tempIndex: Int = 0
+    /// temp index var, record index
+    var tempIndex: Int = 0
+    /// change mode: next, previous, none
     var mode: OperationModeEnum = .none
-    // 实现协议中定义的属性
-    // 变换后的索引
+    /// index after changed
     var indexOperated: Int {
-        get {
+        mutating get {
             switch mode {
             case .next:
                 if index < maxIndex {
@@ -43,9 +41,6 @@ class IndexOperation: IndexOperationProtocol {
                 tempIndex = index - 0
             }
             return tempIndex
-        }
-        set {
-            index = index + 0
         }
     }
 }

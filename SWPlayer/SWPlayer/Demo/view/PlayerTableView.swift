@@ -162,7 +162,7 @@ extension PlayerTableView: SWPlayerControlDelegate {
 
 extension PlayerTableView {
     func changeEpisode(mode: OperationModeEnum) {
-        let idx = IndexOperation()
+        var idx = IndexOperation()
         idx.maxIndex = urlArrayM.count - 1
         idx.index = self.idx
         idx.mode = mode

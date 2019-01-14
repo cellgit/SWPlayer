@@ -35,6 +35,7 @@ enum SWTapDirection {
 
 /// 全局记录屏幕方向: global var of screen direction
 var SWScreenDirection = SWScreenDirectionEnum.portrait
+var kCountDownSeconds = 3
 
 class SWMaskView: UIView {
     
@@ -75,6 +76,11 @@ class SWMaskView: UIView {
     var totalTimeLabel: UILabel!
     /// 当前播放是否已结束,播放状态从结束变为播放(播放,重新播放,快退,快进,滑动杆滑动,前一个,后一个),需要设置isEnd: is play ended
     var isEnd: Bool = false
+    
+    var countDownSeconds = kCountDownSeconds
+    var timer: Timer!
+    
+    
     
     
     let fullImg = UIImage.init(named: "fullscreen_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
@@ -152,9 +158,16 @@ class SWMaskView: UIView {
             }
         }
         else if tapsCount == 1 {
+            
             isControlDisplaying = !isControlDisplaying
             // 单击显示或隐藏maskView上的所有控件: sigle tap to dispalying or hidden the views on maskview
             self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+            if timer != nil {
+                timer.invalidate()
+            }
+            if isControlDisplaying == true {
+                createTimer()
+            }
         }
     }
 }
@@ -319,6 +332,10 @@ extension SWMaskView {
         
         /// 初始化隐藏控件: initial hidden the control views
         displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+        
+        if isControlDisplaying == true {
+            createTimer()
+        }
     }
     
     func layoutControlViews() {
@@ -490,6 +507,7 @@ extension SWMaskView {
     }
     
     @objc func change_screen_action(sender: UIButton) {
+        self.countDownSeconds = kCountDownSeconds
         self.isLandscape = !self.isLandscape
         if self.isLandscape == true {
             SWScreenDirection = SWScreenDirectionEnum.left
@@ -525,17 +543,23 @@ extension SWMaskView {
     
     @objc func previous_action(sender: UIButton) {
         print("前一个")
+        self.countDownSeconds = kCountDownSeconds
         isEnd = false
         delegate.sw_previous_action(sender: sender)
+        self.countDownSeconds = kCountDownSeconds
     }
     @objc func next_action(sender: UIButton) {
         print("下一个")
         isEnd = false
         delegate.sw_next_action(sender: sender)
+        self.countDownSeconds = kCountDownSeconds
     }
     @objc func dismiss_action(sender: UIButton) {
         print("dismiss控制器")
         delegate.sw_dismiss_action()
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
     }
     @objc func more_action(sender: UIButton) {
         print("more function")
@@ -683,7 +707,9 @@ extension SWMaskView {
             screenControlSettings(angle: -(Double.pi/2))
         }
         self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
-        
+        if isControlDisplaying == true {
+            createTimer()
+        }
         layoutControlViews()
         layoutTimeSlider()
         layoutTimeLabel()
@@ -719,6 +745,31 @@ extension SWMaskView {
             }
         default:
             break
+        }
+    }
+}
+
+extension SWMaskView {
+    func createTimer() {
+        if timer != nil {
+            timer.invalidate()
+        }
+        self.countDownSeconds = kCountDownSeconds
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerManager), userInfo: nil, repeats: true)
+        if isControlDisplaying == true {
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+        }
+    }
+    //创建定时器管理者
+    @objc func timerManager() {
+        if self.countDownSeconds == 0 {
+            isControlDisplaying = false
+            if isControlDisplaying == false && isEnd == false {
+                self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+            }
+            timer.invalidate()
+        }else{
+            self.countDownSeconds = self.countDownSeconds - 1
         }
     }
 }
