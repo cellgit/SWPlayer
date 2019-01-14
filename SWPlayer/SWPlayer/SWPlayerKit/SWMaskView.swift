@@ -33,6 +33,12 @@ enum SWTapDirection {
     case right
 }
 
+enum SWTapTimes {
+    case zero
+    case one
+    case two
+}
+
 /// 全局记录屏幕方向: global var of screen direction
 var SWScreenDirection = SWScreenDirectionEnum.portrait
 var kCountDownSeconds = 3
@@ -75,13 +81,14 @@ class SWMaskView: UIView {
     /// 显示全部的时间label: the label that displaying total time
     var totalTimeLabel: UILabel!
     /// 当前播放是否已结束,播放状态从结束变为播放(播放,重新播放,快退,快进,滑动杆滑动,前一个,后一个),需要设置isEnd: is play ended
+    /// title label, displaying the title of episode
+    var titleLabel: UILabel!
     var isEnd: Bool = false
     
     var countDownSeconds = kCountDownSeconds
     var timer: Timer!
-    
-    
-    
+    ///  times of tap maskView
+    var tapTime: SWTapTimes = SWTapTimes.zero
     
     let fullImg = UIImage.init(named: "fullscreen_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
     let unfullImg = UIImage.init(named: "fullscreen_exit_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
@@ -147,6 +154,12 @@ class SWMaskView: UIView {
         print("tapDirection===== \(tapDirection)")
         
         if tapsCount == 2 {
+            self.tapTime = .two
+            
+            isControlDisplaying = false
+            // 单击显示或隐藏maskView上的所有控件: sigle tap to dispalying or hidden the views on maskview
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .two)
+            
             // 双击快进或快退: double tap to fast forward or fast rewind
             if tapDirection == .right {  //快进: fast forward
                 isEnd = false
@@ -158,10 +171,10 @@ class SWMaskView: UIView {
             }
         }
         else if tapsCount == 1 {
-            
+            self.tapTime = .one
             isControlDisplaying = !isControlDisplaying
             // 单击显示或隐藏maskView上的所有控件: sigle tap to dispalying or hidden the views on maskview
-            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .one)
             if timer != nil {
                 timer.invalidate()
             }
@@ -326,12 +339,21 @@ extension SWMaskView {
         totalTimeLabel.text = "--:--"
         totalTimeLabel.textAlignment = .left
         
+        titleLabel = UILabel.init()
+        self.addSubview(titleLabel)
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.text = "Episode Title BunnyAuto Application is Greate"
+        titleLabel.textAlignment = .left
+        
+        
         layoutControlViews()
         layoutTimeSlider()
         layoutTimeLabel()
+        layoutTitleLabel()
         
         /// 初始化隐藏控件: initial hidden the control views
-        displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+        displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .zero)
         
         if isControlDisplaying == true {
             createTimer()
@@ -465,6 +487,36 @@ extension SWMaskView {
         }
     }
     
+    func layoutTitleLabel() {
+        if titleLabel != nil {
+            for const in self.constraints {
+                UIView.animate(withDuration: 0.3) {
+                    if const.firstItem as? UILabel == self.titleLabel {
+                        self.removeConstraint(const)
+                    }
+                    self.layoutIfNeeded()
+                }
+            }
+        }
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let height = NSLayoutConstraint.init(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
+        if isLandscape == true && UIDevice.modelScreen == "1" {
+            let left = NSLayoutConstraint.init(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 50)
+            let right = NSLayoutConstraint.init(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: shareBtn, attribute: .left, multiplier: 1, constant: -20)
+            let center_Y = NSLayoutConstraint.init(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: shareBtn, attribute: .centerY, multiplier: 1, constant: 0)
+            let constraints = [height, left, right, center_Y]
+            self.addConstraints(constraints)
+        }
+        else {
+            let left = NSLayoutConstraint.init(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 20)
+            let right = NSLayoutConstraint.init(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: shareBtn, attribute: .left, multiplier: 1, constant: -20)
+            let center_Y = NSLayoutConstraint.init(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: dismissBtn, attribute: .centerY, multiplier: 1, constant: 0)
+            let constraints = [height, left, right, center_Y]
+            self.addConstraints(constraints)
+        }
+    }
+    
     func layoutTimeSlider() {
         if timeSlider != nil {
             for const in self.constraints {
@@ -522,6 +574,7 @@ extension SWMaskView {
         layoutControlViews()
         layoutTimeSlider()
         layoutTimeLabel()
+        layoutTitleLabel()
     }
     
     @objc func play_action(sender: UIButton) {
@@ -599,9 +652,10 @@ extension SWMaskView {
         }
     }
     
-    func displayControl(isDisplaying: Bool, type: SWEpisodeModeEnum) {
+    func displayControl(isDisplaying: Bool, type: SWEpisodeModeEnum, times: SWTapTimes) {
         switch type {
         case .normal:
+            self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.0)
             if isControlDisplaying == false {   // 如果判断状态为未显示,就隐藏控件
                 self.fullBtn.isHidden = true
                 self.playerBtn.isHidden = true
@@ -612,8 +666,9 @@ extension SWMaskView {
                 self.shareBtn.isHidden = true
                 self.currentTimeLabel.isHidden = true
                 self.totalTimeLabel.isHidden = true
+                self.titleLabel.isHidden = true
                 
-                if isLandscape == true {
+                if isLandscape == true && (times == .one || times == .zero) {
                     self.timeSlider.isHidden = true
                 }
                 else {
@@ -622,6 +677,7 @@ extension SWMaskView {
                 }
             }
             else {  // 如果判断状态为未显示,就不隐藏控件
+                self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
                 self.fullBtn.isHidden = false
                 self.playerBtn.isHidden = false
                 self.previousBtn.isHidden = false
@@ -633,10 +689,12 @@ extension SWMaskView {
                 self.totalTimeLabel.isHidden = false
                 
                 if isLandscape == true {
+                    self.titleLabel.isHidden = false
                     self.dismissBtn.isHidden = true
                     self.timeSlider.isHidden = false
                 }
                 else {
+                    self.titleLabel.isHidden = true
                     self.dismissBtn.isHidden = false
                     self.timeSlider.isHidden = false
                 }
@@ -706,13 +764,14 @@ extension SWMaskView {
             delegate.sw_player_rotate_action(angle: -(Double.pi/2))
             screenControlSettings(angle: -(Double.pi/2))
         }
-        self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+        self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .zero)
         if isControlDisplaying == true {
             createTimer()
         }
         layoutControlViews()
         layoutTimeSlider()
         layoutTimeLabel()
+        layoutTitleLabel()
     }
 }
 
@@ -757,7 +816,7 @@ extension SWMaskView {
         self.countDownSeconds = kCountDownSeconds
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerManager), userInfo: nil, repeats: true)
         if isControlDisplaying == true {
-            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .zero)
         }
     }
     //创建定时器管理者
@@ -765,7 +824,7 @@ extension SWMaskView {
         if self.countDownSeconds == 0 {
             isControlDisplaying = false
             if isControlDisplaying == false && isEnd == false {
-                self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode)
+                self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .zero)
             }
             timer.invalidate()
         }else{
