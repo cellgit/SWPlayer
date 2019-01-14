@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-let kNotchViewHeight: CGFloat = 44  // 刘海区域黑色遮盖视图的高度
+let kNotchViewHeight: CGFloat = 44  // 刘海区域黑色遮盖视图的高度: Notch View Height + 14 = radius value
 
 class PlayerTableView: UIView {
     let KUITableViewCell = "UITableViewCell"
@@ -117,7 +117,7 @@ extension PlayerTableView: UITableViewDataSource,UITableViewDelegate {
     }
 }
 
-/// 屏幕旋转设置
+/// 屏幕上控件action
 extension PlayerTableView: SWPlayerControlDelegate {
     func sw_control_action(_ control: SWPlayerControlEnum) {
         switch control {
@@ -162,12 +162,12 @@ extension PlayerTableView: SWPlayerControlDelegate {
 
 extension PlayerTableView {
     func changeEpisode(mode: OperationModeEnum) {
-        let idx = OperationIndex()
+        let idx = IndexOperation()
         idx.maxIndex = urlArrayM.count - 1
         idx.index = self.idx
         idx.mode = mode
-        let episodeIdx = idx.operatedIndex
-        print("episodeIdx1 == \(idx.operatedIndex)")
+        let episodeIdx = idx.indexOperated
+        print("episodeIdx1 == \(idx.indexOperated)")
         self.idx = episodeIdx
         let urlString = urlArrayM[episodeIdx]
         playerView.player.pause()
