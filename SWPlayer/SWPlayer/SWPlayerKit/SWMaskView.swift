@@ -155,11 +155,7 @@ class SWMaskView: UIView {
         
         if tapsCount == 2 {
             self.tapTime = .two
-            
             isControlDisplaying = false
-            // 单击显示或隐藏maskView上的所有控件: sigle tap to dispalying or hidden the views on maskview
-            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .two)
-            
             // 双击快进或快退: double tap to fast forward or fast rewind
             if tapDirection == .right {  //快进: fast forward
                 isEnd = false
@@ -169,6 +165,11 @@ class SWMaskView: UIView {
                 isEnd = false
                 self.delegate.sw_fast_rewind_action()
             }
+            
+            if timer != nil {
+                timer.invalidate()
+            }
+            createTimer()
         }
         else if tapsCount == 1 {
             self.tapTime = .one
@@ -237,15 +238,19 @@ extension SWMaskView {
     func layoutControl() {
         fullBtn = UIButton.init(type: .custom)
         fullBtn.setImage(fullImg, for: .normal)
+        fullBtn.setImage(fullImg, for: .selected)
         self.addSubview(fullBtn)
         fullBtn.imageView?.tintColor = .white
+        fullBtn.showsTouchWhenHighlighted = true
         fullBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         fullBtn.addTarget(self, action: #selector(change_screen_action(sender:)), for: .touchUpInside)
         
         playerBtn = UIButton.init(type: .custom)
         playerBtn.setImage(pauseImg, for: .normal)
+        playerBtn.setImage(pauseImg, for: .selected)
         self.addSubview(playerBtn)
         playerBtn.imageView?.tintColor = .white
+        playerBtn.showsTouchWhenHighlighted = true
         playerBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: playerBtn, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint.init(item: playerBtn, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
@@ -255,8 +260,10 @@ extension SWMaskView {
         
         previousBtn = UIButton.init(type: .custom)
         previousBtn.setImage(previousImg, for: .normal)
+        previousBtn.setImage(previousImg, for: .selected)
         self.addSubview(previousBtn)
         previousBtn.imageView?.tintColor = .white
+        previousBtn.showsTouchWhenHighlighted = true
         previousBtn.imageEdgeInsets = UIEdgeInsets.init(top: 3, left: 3, bottom: 3, right: 3)
         previousBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: previousBtn, attribute: .centerX, relatedBy: .equal, toItem: playerBtn, attribute: .centerX, multiplier: 1, constant: -80))
@@ -267,8 +274,10 @@ extension SWMaskView {
         
         nextBtn = UIButton.init(type: .custom)
         nextBtn.setImage(nextImg, for: .normal)
+        nextBtn.setImage(nextImg, for: .selected)
         self.addSubview(nextBtn)
         nextBtn.imageView?.tintColor = .white
+        nextBtn.showsTouchWhenHighlighted = true
         nextBtn.imageEdgeInsets = UIEdgeInsets.init(top: 3, left: 3, bottom: 3, right: 3)
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: nextBtn, attribute: .centerX, relatedBy: .equal, toItem: playerBtn, attribute: .centerX, multiplier: 1, constant: 80))
@@ -279,8 +288,10 @@ extension SWMaskView {
         
         dismissBtn = UIButton.init(type: .custom)
         dismissBtn.setImage(dismissImg, for: .normal)
+        dismissBtn.setImage(dismissImg, for: .selected)
         self.addSubview(dismissBtn)
         dismissBtn.imageView?.tintColor = .white
+        dismissBtn.showsTouchWhenHighlighted = true
         dismissBtn.imageEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
         dismissBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: dismissBtn, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 5))
@@ -291,16 +302,20 @@ extension SWMaskView {
         
         moreBtn = UIButton.init(type: .custom)
         moreBtn.setImage(moreImg, for: .normal)
+        moreBtn.setImage(moreImg, for: .selected)
         self.addSubview(moreBtn)
         moreBtn.imageView?.tintColor = .white
+        moreBtn.showsTouchWhenHighlighted = true
         moreBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         
         moreBtn.addTarget(self, action: #selector(more_action(sender:)), for: .touchUpInside)
         
         shareBtn = UIButton.init(type: .custom)
         shareBtn.setImage(shareImg, for: .normal)
+        shareBtn.setImage(shareImg, for: .selected)
         self.addSubview(shareBtn)
         shareBtn.imageView?.tintColor = .white
+        shareBtn.showsTouchWhenHighlighted = true
         shareBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         shareBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: shareBtn, attribute: .right, relatedBy: .equal, toItem: moreBtn, attribute: .left, multiplier: 1, constant: -5))
@@ -817,6 +832,9 @@ extension SWMaskView {
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerManager), userInfo: nil, repeats: true)
         if isControlDisplaying == true {
             self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .zero)
+        }
+        else if isControlDisplaying == false && tapTime != .zero && tapTime != .one {
+            self.displayControl(isDisplaying: isControlDisplaying, type: EpisodeMode, times: .two)
         }
     }
     //创建定时器管理者
