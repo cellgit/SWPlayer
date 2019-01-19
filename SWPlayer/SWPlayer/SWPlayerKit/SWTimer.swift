@@ -8,30 +8,7 @@
 
 import Foundation
 
-class SWTimer: NSObject {
-    var turnTime = 3
-    var timer: Timer!
-    
-//    if timer != nil {
-//    timer.invalidate()
-//    }
-    
-    func createTimer() -> Timer {
-        self.turnTime = 10
-        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerManager), userInfo: nil, repeats: true)
-        return self.timer
-    }
-    //创建定时器管理者
-    @objc func timerManager() {
-        if self.turnTime == 0 {
-            
-            timer.invalidate()
-        }else{
-            self.turnTime = self.turnTime - 1
-        }
-    }
-    
-}
+class SWTimer: NSObject {}
 
 extension SWTimer {
     static func formatSecondsToString(_ time: TimeInterval) -> String {

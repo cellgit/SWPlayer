@@ -60,7 +60,8 @@ class SWMaskView: UIView {
     /// 全屏切换按钮: full screen button
     var fullBtn: UIButton!
     /// 播放暂停按钮: play and pause button
-    var playerBtn: UIButton!
+//    var playerBtn: UIButton!
+    var playerBtn: SWRippleButton!
     /// 前一个: previous episode button
     var previousBtn: UIButton!
     /// 下一个: next episode button
@@ -245,9 +246,12 @@ extension SWMaskView {
         fullBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         fullBtn.addTarget(self, action: #selector(change_screen_action(sender:)), for: .touchUpInside)
         
-        playerBtn = UIButton.init(type: .custom)
+//        playerBtn = UIButton.init(type: .custom)
+        
+        playerBtn = SWRippleButton.init()
+        
         playerBtn.setImage(pauseImg, for: .normal)
-        playerBtn.setImage(pauseImg, for: .selected)
+//        playerBtn.setImage(pauseImg, for: .selected)
         self.addSubview(playerBtn)
         playerBtn.imageView?.tintColor = .white
         playerBtn.showsTouchWhenHighlighted = true
@@ -517,7 +521,7 @@ extension SWMaskView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         let height = NSLayoutConstraint.init(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30)
         if isLandscape == true && UIDevice.modelScreen == "1" {
-            let left = NSLayoutConstraint.init(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 50)
+            let left = NSLayoutConstraint.init(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 80)
             let right = NSLayoutConstraint.init(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: shareBtn, attribute: .left, multiplier: 1, constant: -20)
             let center_Y = NSLayoutConstraint.init(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: shareBtn, attribute: .centerY, multiplier: 1, constant: 0)
             let constraints = [height, left, right, center_Y]

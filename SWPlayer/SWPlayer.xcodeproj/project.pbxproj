@@ -136,6 +136,8 @@
 		F22997C521EB11F50040FEEE /* IndexOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22997C421EB11F50040FEEE /* IndexOperation.swift */; };
 		F23EA35521E6EB9F007336CF /* SWTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA35421E6EB9F007336CF /* SWTimer.swift */; };
 		F23EA35721E6F2FB007336CF /* SWScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA35621E6F2FB007336CF /* SWScreen.swift */; };
+		F24F063621EECD8E0085D846 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24F063521EECD8E0085D846 /* BaseNavigationController.swift */; };
+		F24F063821EF06330085D846 /* SWRippleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24F063721EF06330085D846 /* SWRippleButton.swift */; };
 		F2686FD721E9829500C3F26E /* EpisodeUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2686FD621E9829500C3F26E /* EpisodeUrl.swift */; };
 		F2D0658921E1C35E00B11F03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D0658821E1C35E00B11F03 /* AppDelegate.swift */; };
 		F2D0659121E1C35E00B11F03 /* SWPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2D0658F21E1C35E00B11F03 /* SWPlayer.xcdatamodeld */; };
@@ -292,6 +294,8 @@
 		F22997C421EB11F50040FEEE /* IndexOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexOperation.swift; sourceTree = "<group>"; };
 		F23EA35421E6EB9F007336CF /* SWTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTimer.swift; sourceTree = "<group>"; };
 		F23EA35621E6F2FB007336CF /* SWScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWScreen.swift; sourceTree = "<group>"; };
+		F24F063521EECD8E0085D846 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		F24F063721EF06330085D846 /* SWRippleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRippleButton.swift; sourceTree = "<group>"; };
 		F2686FD621E9829500C3F26E /* EpisodeUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeUrl.swift; sourceTree = "<group>"; };
 		F2D0658521E1C35E00B11F03 /* SWPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D0658821E1C35E00B11F03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -353,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				F22996B821E1E79A0040FEEE /* SWMainViewController.swift */,
+				F24F063521EECD8E0085D846 /* BaseNavigationController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				F23EA35621E6F2FB007336CF /* SWScreen.swift */,
 				F2686FD621E9829500C3F26E /* EpisodeUrl.swift */,
 				F22997C421EB11F50040FEEE /* IndexOperation.swift */,
+				F24F063721EF06330085D846 /* SWRippleButton.swift */,
 				F22996C521E1EC960040FEEE /* icons */,
 			);
 			path = SWPlayerKit;
@@ -839,6 +845,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F22997BF21E1EEC00040FEEE /* PlayerTableViewController.swift in Sources */,
+				F24F063821EF06330085D846 /* SWRippleButton.swift in Sources */,
 				F229973E21E1EC960040FEEE /* SWPlayer.swift in Sources */,
 				F229973F21E1EC960040FEEE /* SWMaskView.swift in Sources */,
 				F229973D21E1EC960040FEEE /* SWPlayerView.swift in Sources */,
@@ -852,6 +859,7 @@
 				F229974021E1EC960040FEEE /* DeviceModel.swift in Sources */,
 				F22997C121E1EEED0040FEEE /* PlayerTableView.swift in Sources */,
 				F23EA35521E6EB9F007336CF /* SWTimer.swift in Sources */,
+				F24F063621EECD8E0085D846 /* BaseNavigationController.swift in Sources */,
 				F2D0658921E1C35E00B11F03 /* AppDelegate.swift in Sources */,
 				F2686FD721E9829500C3F26E /* EpisodeUrl.swift in Sources */,
 			);

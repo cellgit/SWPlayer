@@ -16,17 +16,17 @@ enum OperationModeEnum {
 
 struct IndexOperation {
     /// first index
-    var minIndex: Int = 0
+    public var minIndex: Int = 0
     /// last index
-    var maxIndex: Int = 0
+    public var maxIndex: Int = 0
     /// index before changed
-    var index: Int = 0
+    public var index: Int = 0
     /// temp index var, record index
-    var tempIndex: Int = 0
+    private var tempIndex: Int = 0
     /// change mode: next, previous, none
-    var mode: OperationModeEnum = .none
+    public var mode: OperationModeEnum = .none
     /// index after changed
-    var indexOperated: Int {
+    public var indexOperated: Int {
         mutating get {
             switch mode {
             case .next:
