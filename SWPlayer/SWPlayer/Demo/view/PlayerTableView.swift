@@ -18,7 +18,7 @@ class PlayerTableView: UIView {
     var viewController: PlayerTableViewController!
     
     
-    var urlArrayM = [String]()
+    var urlArrayM = [EpisodeItemStruct]()
     var idx: Int = 0
     
     
@@ -45,15 +45,28 @@ class PlayerTableView: UIView {
         }
         playerView.delegate = self
         
-        urlArrayM = [ApiEpisodeUrl0,
-                     ApiEpisodeUrl1,
-                     ApiEpisodeUrl2,
-                     ApiEpisodeUrl3,
-                     ApiEpisodeUrl4]
+        let data0 = EpisodeItemStruct.init(url: ApiEpisodeUrl0, mode: .live, title: "Apple Live Test")
+        let data1 = EpisodeItemStruct.init(url: ApiEpisodeUrl1, mode: .live, title: "CCTV 1 Live")
+        let data2 = EpisodeItemStruct.init(url: ApiEpisodeUrl2, mode: .live, title: "CCTV 5 Live")
+        let data3 = EpisodeItemStruct.init(url: ApiEpisodeUrl3, mode: .live, title: "CCTV 6 Live")
+        let data4 = EpisodeItemStruct.init(url: ApiEpisodeUrl4, mode: .normal, title: "喜欢你-邓紫棋")
         
-        let urlString = urlArrayM[idx]
-//        let urlString = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-        playerView.player.replace(with: URL.init(string: urlString)!)
+        urlArrayM = [data0,
+                     data1,
+                     data2,
+                     data3,
+                     data4]
+        let item = urlArrayM[idx]
+        EpisodeMode = item.mode
+        playerView.playerMaskView.titleLabel.text = item.title
+        
+        if playerView.player.status == .playing {
+            playerView.player.pause()
+            playerView.player.stop()
+        }
+        
+        playerView.player.replace(with: URL.init(string: item.url)!)
+        
         playerView.player.play()
     }
     
@@ -162,6 +175,9 @@ extension PlayerTableView: SWPlayerControlDelegate {
 
 extension PlayerTableView {
     func changeEpisode(mode: OperationModeEnum) {
+        playerView.player.pause()
+        playerView.player.stop()
+        
         var idx = IndexOperation()
         idx.maxIndex = urlArrayM.count - 1
         idx.index = self.idx
@@ -169,10 +185,10 @@ extension PlayerTableView {
         let episodeIdx = idx.indexOperated
         print("episodeIdx1 == \(idx.indexOperated)")
         self.idx = episodeIdx
-        let urlString = urlArrayM[episodeIdx]
-        playerView.player.pause()
-        playerView.player.stop()
-        playerView.player.replace(with: URL.init(string: urlString)!)
+        let item = urlArrayM[episodeIdx]
+        EpisodeMode = item.mode
+        playerView.playerMaskView.titleLabel.text = item.title
+        playerView.player.replace(with: URL.init(string: item.url)!)
         playerView.player.play()
     }
 }

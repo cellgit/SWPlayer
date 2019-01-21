@@ -9,7 +9,7 @@
 import UIKit
 
 /// episode type: default is normal episode
-var EpisodeMode = SWEpisodeModeEnum.normal
+var EpisodeMode = SWEpisodeModeEnum.live
 
 enum SWEpisodeModeEnum {
     case normal

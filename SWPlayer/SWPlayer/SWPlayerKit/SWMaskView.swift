@@ -91,6 +91,7 @@ class SWMaskView: UIView {
     ///  times of tap maskView
     var tapTime: SWTapTimes = SWTapTimes.zero
     
+    let clearImg = UIImage.init(named: "")?.withRenderingMode(.alwaysTemplate)
     let fullImg = UIImage.init(named: "fullscreen_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
     let unfullImg = UIImage.init(named: "fullscreen_exit_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
     let pauseImg = UIImage.init(named: "pause_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
@@ -711,16 +712,67 @@ extension SWMaskView {
                     self.titleLabel.isHidden = false
                     self.dismissBtn.isHidden = true
                     self.timeSlider.isHidden = false
+                    timeSlider.setThumbImage(sliderImg, for: .normal)
                 }
                 else {
                     self.titleLabel.isHidden = true
                     self.dismissBtn.isHidden = false
                     self.timeSlider.isHidden = false
+                    timeSlider.setThumbImage(sliderImg, for: .normal)
                 }
             }
             /// 如果需要始终隐藏某个控件,在这里设置.isHidden = true
         case .live:
             print("live")
+            self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.0)
+            if isControlDisplaying == false {   // 如果判断状态为未显示,就隐藏控件
+                self.fullBtn.isHidden = true
+                self.playerBtn.isHidden = true
+                self.previousBtn.isHidden = true
+                self.nextBtn.isHidden = true
+                self.dismissBtn.isHidden = true
+                self.moreBtn.isHidden = true
+                self.shareBtn.isHidden = true
+                self.currentTimeLabel.isHidden = true
+                self.totalTimeLabel.isHidden = true
+                self.titleLabel.isHidden = true
+                
+                if isLandscape == true && (times == .one || times == .zero) {
+                    self.timeSlider.isHidden = true
+                }
+                else {
+                    self.timeSlider.isHidden = true
+                    self.timeSlider.tintColor = UIColor.clear
+                }
+            }
+            else {  // 如果判断状态为未显示,就不隐藏控件
+                self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
+                self.fullBtn.isHidden = false
+                self.playerBtn.isHidden = false
+                self.previousBtn.isHidden = false
+                self.nextBtn.isHidden = false
+                self.moreBtn.isHidden = false
+                self.shareBtn.isHidden = false
+                self.timeSlider.tintColor = UIColor.red
+                self.currentTimeLabel.isHidden = true
+                self.totalTimeLabel.isHidden = true
+                
+                if isLandscape == true {
+                    self.titleLabel.isHidden = false
+                    self.dismissBtn.isHidden = true
+                    self.timeSlider.isHidden = false
+                    timeSlider.setThumbImage(sliderImg, for: .normal)
+                }
+                else {
+                    self.titleLabel.isHidden = true
+                    self.dismissBtn.isHidden = false
+                    self.timeSlider.isHidden = false
+                    timeSlider.setThumbImage(sliderImg, for: .normal)
+                }
+            }
+            /// 如果需要始终隐藏某个控件,在这里设置.isHidden = true
+
+            
         case .ad:
             print("live")
         default:
