@@ -145,6 +145,7 @@
 		F2D0659621E1C36000B11F03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2D0659421E1C36000B11F03 /* LaunchScreen.storyboard */; };
 		F2D065A121E1C36000B11F03 /* SWPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D065A021E1C36000B11F03 /* SWPlayerTests.swift */; };
 		F2D065AC21E1C36000B11F03 /* SWPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D065AB21E1C36000B11F03 /* SWPlayerUITests.swift */; };
+		F2E7F67521F6C81A00ECD421 /* GestureRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E7F67421F6C81A00ECD421 /* GestureRecognizerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +310,7 @@
 		F2D065A721E1C36000B11F03 /* SWPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D065AB21E1C36000B11F03 /* SWPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPlayerUITests.swift; sourceTree = "<group>"; };
 		F2D065AD21E1C36100B11F03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2E7F67421F6C81A00ECD421 /* GestureRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +378,7 @@
 				F2686FD621E9829500C3F26E /* EpisodeUrl.swift */,
 				F22997C421EB11F50040FEEE /* IndexOperation.swift */,
 				F24F063721EF06330085D846 /* SWRippleButton.swift */,
+				F2E7F67421F6C81A00ECD421 /* GestureRecognizerManager.swift */,
 				F22996C521E1EC960040FEEE /* icons */,
 			);
 			path = SWPlayerKit;
@@ -845,6 +848,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F22997BF21E1EEC00040FEEE /* PlayerTableViewController.swift in Sources */,
+				F2E7F67521F6C81A00ECD421 /* GestureRecognizerManager.swift in Sources */,
 				F24F063821EF06330085D846 /* SWRippleButton.swift in Sources */,
 				F229973E21E1EC960040FEEE /* SWPlayer.swift in Sources */,
 				F229973F21E1EC960040FEEE /* SWMaskView.swift in Sources */,

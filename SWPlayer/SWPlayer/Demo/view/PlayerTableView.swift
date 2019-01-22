@@ -45,84 +45,64 @@ class PlayerTableView: UIView {
         }
         playerView.delegate = self
         
-        let data0 = EpisodeItemStruct.init(url: ApiEpisodeUrl0, mode: .live, title: "Apple Live Test")
-        let data1 = EpisodeItemStruct.init(url: ApiEpisodeUrl1, mode: .live, title: "CCTV 1 Live")
-        let data2 = EpisodeItemStruct.init(url: ApiEpisodeUrl2, mode: .live, title: "CCTV 5 Live")
-        let data3 = EpisodeItemStruct.init(url: ApiEpisodeUrl3, mode: .live, title: "CCTV 6 Live")
-        let data4 = EpisodeItemStruct.init(url: ApiEpisodeUrl4, mode: .live, title: "喜欢你-邓紫棋")
-        let data5 = EpisodeItemStruct.init(url: ApiEpisodeUrl5, mode: .live, title: "喜欢你-邓紫棋")
-        let data6 = EpisodeItemStruct.init(url: ApiEpisodeUrl6, mode: .live, title: "喜欢你-邓紫棋")
-        let data7 = EpisodeItemStruct.init(url: ApiEpisodeUrl7, mode: .live, title: "喜欢你-邓紫棋")
-        let data8 = EpisodeItemStruct.init(url: ApiEpisodeUrl8, mode: .live, title: "喜欢你-邓紫棋")
-        let data9 = EpisodeItemStruct.init(url: ApiEpisodeUrl9, mode: .live, title: "喜欢你-邓紫棋")
-        let data10 = EpisodeItemStruct.init(url: ApiEpisodeUrl10, mode: .live, title: "喜欢你-邓紫棋")
-        let data11 = EpisodeItemStruct.init(url: ApiEpisodeUrl11, mode: .live, title: "喜欢你-邓紫棋")
-        let data12 = EpisodeItemStruct.init(url: ApiEpisodeUrl12, mode: .live, title: "喜欢你-邓紫棋")
-        let data13 = EpisodeItemStruct.init(url: ApiEpisodeUrl13, mode: .live, title: "喜欢你-邓紫棋")
-        let data14 = EpisodeItemStruct.init(url: ApiEpisodeUrl14, mode: .live, title: "喜欢你-邓紫棋")
-        let data15 = EpisodeItemStruct.init(url: ApiEpisodeUrl15, mode: .live, title: "喜欢你-邓紫棋")
-        let data16 = EpisodeItemStruct.init(url: ApiEpisodeUrl16, mode: .live, title: "喜欢你-邓紫棋")
-        let data17 = EpisodeItemStruct.init(url: ApiEpisodeUrl17, mode: .live, title: "喜欢你-邓紫棋")
-        let data18 = EpisodeItemStruct.init(url: ApiEpisodeUrl18, mode: .live, title: "喜欢你-邓紫棋")
-        let data19 = EpisodeItemStruct.init(url: ApiEpisodeUrl19, mode: .live, title: "喜欢你-邓紫棋")
-        let data20 = EpisodeItemStruct.init(url: ApiEpisodeUrl20, mode: .live, title: "喜欢你-邓紫棋")
-        let data21 = EpisodeItemStruct.init(url: ApiEpisodeUrl21, mode: .live, title: "喜欢你-邓紫棋")
-        let data22 = EpisodeItemStruct.init(url: ApiEpisodeUrl22, mode: .live, title: "喜欢你-邓紫棋")
-        let data23 = EpisodeItemStruct.init(url: ApiEpisodeUrl23, mode: .live, title: "喜欢你-邓紫棋")
-        let data24 = EpisodeItemStruct.init(url: ApiEpisodeUrl24, mode: .live, title: "喜欢你-邓紫棋")
-        let data25 = EpisodeItemStruct.init(url: ApiEpisodeUrl25, mode: .live, title: "喜欢你-邓紫棋")
-        let data26 = EpisodeItemStruct.init(url: ApiEpisodeUrl26, mode: .live, title: "喜欢你-邓紫棋")
-        let data27 = EpisodeItemStruct.init(url: ApiEpisodeUrl27, mode: .live, title: "喜欢你-邓紫棋")
-        let data28 = EpisodeItemStruct.init(url: ApiEpisodeUrl28, mode: .live, title: "喜欢你-邓紫棋")
-        let data29 = EpisodeItemStruct.init(url: ApiEpisodeUrl29, mode: .live, title: "喜欢你-邓紫棋")
-        let data30 = EpisodeItemStruct.init(url: ApiEpisodeUrl30, mode: .live, title: "喜欢你-邓紫棋")
-        let data31 = EpisodeItemStruct.init(url: ApiEpisodeUrl31, mode: .live, title: "喜欢你-邓紫棋")
-        let data32 = EpisodeItemStruct.init(url: ApiEpisodeUrl32, mode: .live, title: "喜欢你-邓紫棋")
-        let data33 = EpisodeItemStruct.init(url: ApiEpisodeUrl33, mode: .live, title: "喜欢你-邓紫棋")
-        let data34 = EpisodeItemStruct.init(url: ApiEpisodeUrl34, mode: .live, title: "喜欢你-邓紫棋")
-        let data35 = EpisodeItemStruct.init(url: ApiEpisodeUrl35, mode: .live, title: "喜欢你-邓紫棋")
-        let data36 = EpisodeItemStruct.init(url: ApiEpisodeUrl36, mode: .live, title: "喜欢你-邓紫棋")
-        let data37 = EpisodeItemStruct.init(url: ApiEpisodeUrl37, mode: .live, title: "喜欢你-邓紫棋")
-        let data38 = EpisodeItemStruct.init(url: ApiEpisodeUrl38, mode: .live, title: "喜欢你-邓紫棋")
-        let data39 = EpisodeItemStruct.init(url: ApiEpisodeUrl39, mode: .live, title: "喜欢你-邓紫棋")
-        let data40 = EpisodeItemStruct.init(url: ApiEpisodeUrl40, mode: .live, title: "喜欢你-邓紫棋")
-        let data41 = EpisodeItemStruct.init(url: ApiEpisodeUrl41, mode: .live, title: "喜欢你-邓紫棋")
-        let data42 = EpisodeItemStruct.init(url: ApiEpisodeUrl42, mode: .live, title: "喜欢你-邓紫棋")
-        let data43 = EpisodeItemStruct.init(url: ApiEpisodeUrl43, mode: .live, title: "喜欢你-邓紫棋")
-        let data44 = EpisodeItemStruct.init(url: ApiEpisodeUrl44, mode: .live, title: "喜欢你-邓紫棋")
-        let data45 = EpisodeItemStruct.init(url: ApiEpisodeUrl45, mode: .live, title: "喜欢你-邓紫棋")
-        let data46 = EpisodeItemStruct.init(url: ApiEpisodeUrl46, mode: .live, title: "喜欢你-邓紫棋")
-        let data47 = EpisodeItemStruct.init(url: ApiEpisodeUrl47, mode: .live, title: "喜欢你-邓紫棋")
-        let data48 = EpisodeItemStruct.init(url: ApiEpisodeUrl48, mode: .live, title: "喜欢你-邓紫棋")
-        let data49 = EpisodeItemStruct.init(url: ApiEpisodeUrl49, mode: .live, title: "喜欢你-邓紫棋")
-        let data50 = EpisodeItemStruct.init(url: ApiEpisodeUrl50, mode: .live, title: "喜欢你-邓紫棋")
-        let data51 = EpisodeItemStruct.init(url: ApiEpisodeUrl51, mode: .live, title: "喜欢你-邓紫棋")
-        let data52 = EpisodeItemStruct.init(url: ApiEpisodeUrl52, mode: .live, title: "喜欢你-邓紫棋")
-        let data53 = EpisodeItemStruct.init(url: ApiEpisodeUrl53, mode: .live, title: "喜欢你-邓紫棋")
-        let data54 = EpisodeItemStruct.init(url: ApiEpisodeUrl54, mode: .live, title: "喜欢你-邓紫棋")
-        let data55 = EpisodeItemStruct.init(url: ApiEpisodeUrl55, mode: .live, title: "喜欢你-邓紫棋")
-        let data56 = EpisodeItemStruct.init(url: ApiEpisodeUrl56, mode: .live, title: "喜欢你-邓紫棋")
-        let data57 = EpisodeItemStruct.init(url: ApiEpisodeUrl57, mode: .live, title: "喜欢你-邓紫棋")
-        let data58 = EpisodeItemStruct.init(url: ApiEpisodeUrl58, mode: .live, title: "喜欢你-邓紫棋")
-        let data59 = EpisodeItemStruct.init(url: ApiEpisodeUrl59, mode: .live, title: "喜欢你-邓紫棋")
-        let data60 = EpisodeItemStruct.init(url: ApiEpisodeUrl60, mode: .live, title: "喜欢你-邓紫棋")
-        let data61 = EpisodeItemStruct.init(url: ApiEpisodeUrl61, mode: .live, title: "喜欢你-邓紫棋")
-        let data62 = EpisodeItemStruct.init(url: ApiEpisodeUrl62, mode: .live, title: "喜欢你-邓紫棋")
-        let data63 = EpisodeItemStruct.init(url: ApiEpisodeUrl63, mode: .live, title: "喜欢你-邓紫棋")
-        let data64 = EpisodeItemStruct.init(url: ApiEpisodeUrl64, mode: .live, title: "喜欢你-邓紫棋")
-        let data65 = EpisodeItemStruct.init(url: ApiEpisodeUrl65, mode: .live, title: "喜欢你-邓紫棋")
-        let data66 = EpisodeItemStruct.init(url: ApiEpisodeUrl66, mode: .live, title: "喜欢你-邓紫棋")
-        let data67 = EpisodeItemStruct.init(url: ApiEpisodeUrl67, mode: .live, title: "喜欢你-邓紫棋")
-        let data68 = EpisodeItemStruct.init(url: ApiEpisodeUrl68, mode: .live, title: "喜欢你-邓紫棋")
-        let data69 = EpisodeItemStruct.init(url: ApiEpisodeUrl69, mode: .live, title: "喜欢你-邓紫棋")
-        let data70 = EpisodeItemStruct.init(url: ApiEpisodeUrl70, mode: .live, title: "喜欢你-邓紫棋")
-        let data71 = EpisodeItemStruct.init(url: ApiEpisodeUrl71, mode: .live, title: "喜欢你-邓紫棋")
-        let data72 = EpisodeItemStruct.init(url: ApiEpisodeUrl72, mode: .live, title: "喜欢你-邓紫棋")
-        let data73 = EpisodeItemStruct.init(url: ApiEpisodeUrl73, mode: .live, title: "喜欢你-邓紫棋")
-        let data74 = EpisodeItemStruct.init(url: ApiEpisodeUrl74, mode: .live, title: "喜欢你-邓紫棋")
-        let data75 = EpisodeItemStruct.init(url: ApiEpisodeUrl75, mode: .live, title: "喜欢你-邓紫棋")
-        let data76 = EpisodeItemStruct.init(url: ApiEpisodeUrl76, mode: .live, title: "喜欢你-邓紫棋")
-        let data77 = EpisodeItemStruct.init(url: ApiEpisodeUrl77, mode: .live, title: "喜欢你-邓紫棋")
+        let data0 = EpisodeItemStruct.init(url: ApiEpisodeUrl0, mode: .live, title: "CCTV-1综合HD")
+        let data1 = EpisodeItemStruct.init(url: ApiEpisodeUrl1, mode: .live, title: "CCTV-2财经")
+        let data2 = EpisodeItemStruct.init(url: ApiEpisodeUrl2, mode: .live, title: "CCTV-3综艺HD")
+        let data3 = EpisodeItemStruct.init(url: ApiEpisodeUrl3, mode: .live, title: "CCTV-4中文国际")
+        let data4 = EpisodeItemStruct.init(url: ApiEpisodeUrl4, mode: .live, title: "CCTV-5+体育赛事HD")
+        let data5 = EpisodeItemStruct.init(url: ApiEpisodeUrl5, mode: .live, title: "CCTV-6电影HD")
+        let data6 = EpisodeItemStruct.init(url: ApiEpisodeUrl6, mode: .live, title: "CCTV-7军事农业")
+        let data7 = EpisodeItemStruct.init(url: ApiEpisodeUrl7, mode: .live, title: "CCTV-8电视剧HD")
+        let data8 = EpisodeItemStruct.init(url: ApiEpisodeUrl8, mode: .live, title: "CCTV-9纪录")
+        let data9 = EpisodeItemStruct.init(url: ApiEpisodeUrl9, mode: .live, title: "CCTV-10科教")
+        let data10 = EpisodeItemStruct.init(url: ApiEpisodeUrl10, mode: .live, title: "CCTV-11戏曲")
+        let data11 = EpisodeItemStruct.init(url: ApiEpisodeUrl11, mode: .live, title: "CCTV-12社会与法")
+        let data12 = EpisodeItemStruct.init(url: ApiEpisodeUrl12, mode: .live, title: "CCTV-13新闻")
+        let data13 = EpisodeItemStruct.init(url: ApiEpisodeUrl13, mode: .live, title: "CCTV-14少儿")
+        let data14 = EpisodeItemStruct.init(url: ApiEpisodeUrl14, mode: .live, title: "CCTV-15音乐")
+        let data15 = EpisodeItemStruct.init(url: ApiEpisodeUrl15, mode: .live, title: "CCTV-NEWS")
+        let data16 = EpisodeItemStruct.init(url: ApiEpisodeUrl16, mode: .live, title: "CHC高清电影")
+        let data17 = EpisodeItemStruct.init(url: ApiEpisodeUrl17, mode: .live, title: "北京卫视HD")
+        let data18 = EpisodeItemStruct.init(url: ApiEpisodeUrl18, mode: .live, title: "北京文艺HD")
+        let data19 = EpisodeItemStruct.init(url: ApiEpisodeUrl19, mode: .live, title: "北京体育HD")
+        let data20 = EpisodeItemStruct.init(url: ApiEpisodeUrl20, mode: .live, title: "北京纪实HD")
+        let data21 = EpisodeItemStruct.init(url: ApiEpisodeUrl21, mode: .live, title: "北京科教")
+        let data22 = EpisodeItemStruct.init(url: ApiEpisodeUrl22, mode: .live, title: "北京影视")
+        let data23 = EpisodeItemStruct.init(url: ApiEpisodeUrl23, mode: .live, title: "北京财经")
+        let data24 = EpisodeItemStruct.init(url: ApiEpisodeUrl24, mode: .live, title: "北京体育")
+        let data25 = EpisodeItemStruct.init(url: ApiEpisodeUrl25, mode: .live, title: "北京生活")
+        let data26 = EpisodeItemStruct.init(url: ApiEpisodeUrl26, mode: .live, title: "北京青年")
+        let data27 = EpisodeItemStruct.init(url: ApiEpisodeUrl27, mode: .live, title: "北京新闻")
+        let data28 = EpisodeItemStruct.init(url: ApiEpisodeUrl28, mode: .live, title: "北京卡酷少儿")
+        let data29 = EpisodeItemStruct.init(url: ApiEpisodeUrl29, mode: .live, title: "安徽卫视HD")
+        let data30 = EpisodeItemStruct.init(url: ApiEpisodeUrl30, mode: .live, title: "湖南卫视HD")
+        let data31 = EpisodeItemStruct.init(url: ApiEpisodeUrl31, mode: .live, title: "浙江卫视HD")
+        let data32 = EpisodeItemStruct.init(url: ApiEpisodeUrl32, mode: .live, title: "江苏卫视HD")
+        let data33 = EpisodeItemStruct.init(url: ApiEpisodeUrl33, mode: .live, title: "东方卫视HD")
+        let data34 = EpisodeItemStruct.init(url: ApiEpisodeUrl34, mode: .live, title: "黑龙江卫视HD")
+        let data35 = EpisodeItemStruct.init(url: ApiEpisodeUrl35, mode: .live, title: "辽宁卫视HD")
+        let data36 = EpisodeItemStruct.init(url: ApiEpisodeUrl36, mode: .live, title: "吉林卫视")
+        let data37 = EpisodeItemStruct.init(url: ApiEpisodeUrl37, mode: .live, title: "广东卫视HD")
+        let data38 = EpisodeItemStruct.init(url: ApiEpisodeUrl38, mode: .live, title: "天津卫视HD")
+        let data39 = EpisodeItemStruct.init(url: ApiEpisodeUrl39, mode: .live, title: "湖北卫视HD")
+        let data40 = EpisodeItemStruct.init(url: ApiEpisodeUrl40, mode: .live, title: "山东卫视HD")
+        let data41 = EpisodeItemStruct.init(url: ApiEpisodeUrl41, mode: .live, title: "重庆卫视HD")
+        let data42 = EpisodeItemStruct.init(url: ApiEpisodeUrl42, mode: .live, title: "河南卫视")
+        let data43 = EpisodeItemStruct.init(url: ApiEpisodeUrl43, mode: .live, title: "陕西卫视")
+        let data44 = EpisodeItemStruct.init(url: ApiEpisodeUrl44, mode: .live, title: "吉林卫视")
+        let data45 = EpisodeItemStruct.init(url: ApiEpisodeUrl45, mode: .live, title: "广西卫视")
+        let data46 = EpisodeItemStruct.init(url: ApiEpisodeUrl46, mode: .live, title: "西藏卫视")
+        let data47 = EpisodeItemStruct.init(url: ApiEpisodeUrl47, mode: .live, title: "内蒙古卫视")
+        let data48 = EpisodeItemStruct.init(url: ApiEpisodeUrl48, mode: .live, title: "青海卫视")
+        let data49 = EpisodeItemStruct.init(url: ApiEpisodeUrl49, mode: .live, title: "四川卫视")
+        let data50 = EpisodeItemStruct.init(url: ApiEpisodeUrl50, mode: .live, title: "江西卫视")
+        let data51 = EpisodeItemStruct.init(url: ApiEpisodeUrl51, mode: .live, title: "东南卫视")
+        let data52 = EpisodeItemStruct.init(url: ApiEpisodeUrl52, mode: .live, title: "贵州卫视")
+        let data53 = EpisodeItemStruct.init(url: ApiEpisodeUrl53, mode: .live, title: "宁夏卫视")
+        let data54 = EpisodeItemStruct.init(url: ApiEpisodeUrl54, mode: .live, title: "甘肃卫视")
+        let data55 = EpisodeItemStruct.init(url: ApiEpisodeUrl55, mode: .live, title: "兵团卫视")
+        let data56 = EpisodeItemStruct.init(url: ApiEpisodeUrl56, mode: .live, title: "旅游卫视")
+        
         
         urlArrayM = [data0,
                      data1,
@@ -180,28 +160,7 @@ class PlayerTableView: UIView {
                      data53,
                      data54,
                      data55,
-                     data56,
-                     data57,
-                     data58,
-                     data59,
-                     data60,
-                     data61,
-                     data62,
-                     data63,
-                     data64,
-                     data65,
-                     data66,
-                     data67,
-                     data68,
-                     data69,
-                     data70,
-                     data71,
-                     data72,
-                     data73,
-                     data74,
-                     data75,
-                     data76,
-                     data77]
+                     data56]
         let item = urlArrayM[idx]
         EpisodeMode = item.mode
         playerView.playerMaskView.titleLabel.text = item.title
