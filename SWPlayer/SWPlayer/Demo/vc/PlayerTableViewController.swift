@@ -17,10 +17,7 @@ protocol SWPlayerDismissDelegate {
 class PlayerTableViewController: UIViewController {
     
     var containerView: PlayerTableView!
-    
     var delegate: SWPlayerDismissDelegate!
-    
-    
     
     override var shouldAutorotate: Bool {
         print("NormalPlayerVC.shouldAutorotate")
@@ -52,10 +49,8 @@ class PlayerTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
-        
-        self.title = "Normal Player"
+        self.title = "Player"
         
         setupUI()
     }
