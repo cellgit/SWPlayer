@@ -35,6 +35,8 @@ protocol SWPlayerControlDelegate {
     func sw_screen_direction_action(direction: SWScreenDirectionEnum)
 }
 
+var kTipCountDownSeconds = 1
+
 class SWPlayerView: UIView {
     
     private(set) var player = SWPlayer()
@@ -52,6 +54,12 @@ class SWPlayerView: UIView {
     var verFrame: CGRect!
     /// source item of playing
     var currentItem: AVPlayerItem?
+    /// 加载中view倒计时timer
+    var timer: Timer!
+    
+    var countDownSeconds = kTipCountDownSeconds
+    
+    var loadStatus: Status = .unknown
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,6 +86,7 @@ class SWPlayerView: UIView {
         self.player.statusDidChangeHandler = { status in
             print("status ==== \(status)")
             self.playerMaskView.statusDidChanged(status: status)
+            self.displayLoadingView(status: status)
         }
         self.player.playedDurationDidChangeHandler = { (played, total) in
 //            print("------===---===\(played)/\(total)")
@@ -197,6 +206,40 @@ extension SWPlayerView: SWPlayerSliderDelegate {
         }
         else {
             self.player.seek(to: currentDuration)
+        }
+    }
+}
+
+extension SWPlayerView {
+    /// 加载中tip显示,如果n秒后仍处于loading状态,则显示加载提示
+    func displayLoadingView(status: Status) {
+        self.loadStatus = status
+        if status == .buffering {
+            if timer != nil {
+                timer.invalidate()
+            }
+            createTimer()
+        }
+        else {
+            print("移除加载中的提示")
+        }
+    }
+    func createTimer() {
+        if timer != nil {
+            timer.invalidate()
+        }
+        self.countDownSeconds = kTipCountDownSeconds
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerManager), userInfo: nil, repeats: true)
+    }
+    //创建定时器管理者
+    @objc func timerManager() {
+        if self.countDownSeconds <= 0 {
+            if self.loadStatus == .buffering {
+                print("显示加载中的提示")
+            }
+            timer.invalidate()
+        }else{
+            self.countDownSeconds = self.countDownSeconds - 1
         }
     }
 }
