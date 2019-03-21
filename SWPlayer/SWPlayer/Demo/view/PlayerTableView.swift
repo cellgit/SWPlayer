@@ -45,7 +45,7 @@ class PlayerTableView: UIView {
         }
         playerView.delegate = self
         
-        let data0 = EpisodeItemStruct.init(url: ApiEpisodeUrl0, mode: .live, title: "CCTV-1综合HD")
+        let data0 = EpisodeItemStruct.init(url: ApiEpisodeUrl0, mode: .normal, title: "CCTV-1综合HD")
         let data1 = EpisodeItemStruct.init(url: ApiEpisodeUrl1, mode: .live, title: "CCTV-2财经")
         let data2 = EpisodeItemStruct.init(url: ApiEpisodeUrl2, mode: .live, title: "CCTV-3综艺HD")
         let data3 = EpisodeItemStruct.init(url: ApiEpisodeUrl3, mode: .live, title: "CCTV-4中文国际")

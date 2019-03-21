@@ -50,7 +50,7 @@ extension PlayerListViewController: UITableViewDataSource,UITableViewDelegate {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: KUITableViewCell, for: indexPath)
@@ -59,16 +59,18 @@ extension PlayerListViewController: UITableViewDataSource,UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.row == 0 {
-            let vc = PlayerTableViewController()
-            vc.delegate = self
-            self.navigationController?.present(vc, animated: true, completion: nil)
-        }
-        else if indexPath.row == 1 {
             let vc = PlayerTableViewController()
             vc.delegate = self
             sw_navigation_present_action(vc:vc)
         }
+        
+//        else if indexPath.row == 1 {
+//            let vc = PlayerTableViewController()
+//            vc.delegate = self
+//            self.navigationController?.present(vc, animated: true, completion: nil)
+//        }
         
     }
     
