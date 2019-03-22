@@ -58,6 +58,10 @@ extension SWPlayer {
         currentItem = AVPlayerItem(url: url)
         addItemObservers()
         player.replaceCurrentItem(with: currentItem)
+        
+        let bfrPgs = bufferingProgress(currentItem!)
+        print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
+        
     }
     func stop() {
         removeItemObservers()
@@ -77,6 +81,18 @@ extension SWPlayer {
     }
     func bind(to playerLayer: AVPlayerLayer) {
         playerLayer.player = player
+    }
+}
+
+extension SWPlayer {
+    /// 计算缓冲进度
+    func bufferingProgress(_ item: AVPlayerItem) -> TimeInterval {
+        let loadedTimeRanges = item.loadedTimeRanges
+        let timeRange = loadedTimeRanges.first?.timeRangeValue
+        let start = timeRange?.start.seconds ?? 0
+        let during = timeRange?.duration.seconds ?? 0
+        let loaded = start + during
+        return loaded
     }
 }
 
@@ -123,6 +139,9 @@ extension SWPlayer {
         currentItem?.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: &observerContext)
         currentItem?.addObserver(self, forKeyPath: "isPlaybackBufferEmpty", options: .new, context: &observerContext)
         currentItem?.addObserver(self, forKeyPath: "isPlaybackBufferFull", options: .new, context: &observerContext)
+        
+        ///
+        currentItem?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: &observerContext)
     }
     private func removeItemObservers() {
         currentItem?.removeObserver(self, forKeyPath: "status")
@@ -161,6 +180,10 @@ extension SWPlayer {
                 case .playing:
                     self.status = .playing
 //                    print("play playing")
+                    
+                    let bfrPgs = self.bufferingProgress(self.currentItem!)
+                    print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
+                    
                 case .paused:
                     self.status = .paused
                     print("play paused")
@@ -173,6 +196,10 @@ extension SWPlayer {
                     if currentItem.isPlaybackLikelyToKeepUp {
                         self.status = .playing
 //                        print("play playing")
+                        
+                        let bfrPgs = self.bufferingProgress(self.currentItem!)
+                        print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
+                        
                     } else {
                         self.status = .buffering
                         print("play buffering")
