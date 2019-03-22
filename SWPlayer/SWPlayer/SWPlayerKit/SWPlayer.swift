@@ -140,7 +140,7 @@ extension SWPlayer {
         currentItem?.addObserver(self, forKeyPath: "isPlaybackBufferEmpty", options: .new, context: &observerContext)
         currentItem?.addObserver(self, forKeyPath: "isPlaybackBufferFull", options: .new, context: &observerContext)
         
-        ///
+        /// 加载进度progress of loaded
         currentItem?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: &observerContext)
     }
     private func removeItemObservers() {
@@ -148,6 +148,7 @@ extension SWPlayer {
         currentItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp")
         currentItem?.removeObserver(self, forKeyPath: "isPlaybackBufferEmpty")
         currentItem?.removeObserver(self, forKeyPath: "isPlaybackBufferFull")
+        currentItem?.removeObserver(self, forKeyPath: "loadedTimeRanges")
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard context == &observerContext else {
@@ -155,6 +156,13 @@ extension SWPlayer {
             return
         }
         updateStatus()
+        
+        if keyPath == "status" {
+//            updateStatus()
+        }else if keyPath == "loadedTimeRanges"{
+            let bfrPgs = self.bufferingProgress(self.currentItem!)
+            print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
+        }
     }
 }
 
@@ -180,10 +188,6 @@ extension SWPlayer {
                 case .playing:
                     self.status = .playing
 //                    print("play playing")
-                    
-                    let bfrPgs = self.bufferingProgress(self.currentItem!)
-                    print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
-                    
                 case .paused:
                     self.status = .paused
                     print("play paused")
@@ -196,10 +200,6 @@ extension SWPlayer {
                     if currentItem.isPlaybackLikelyToKeepUp {
                         self.status = .playing
 //                        print("play playing")
-                        
-                        let bfrPgs = self.bufferingProgress(self.currentItem!)
-                        print("bfrPgsbfrPgsbfrPgs ===== \(bfrPgs)")
-                        
                     } else {
                         self.status = .buffering
                         print("play buffering")
