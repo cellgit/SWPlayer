@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 
+
+/// ----
 /// fast forward and fast rewind ABS value
 let kFastSeekSeconds: Double = 10
 
