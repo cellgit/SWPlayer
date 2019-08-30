@@ -58,20 +58,20 @@ class SWMaskView: UIView {
     
     
     /// 全屏切换按钮: full screen button
-    var fullBtn: UIButton!
+    var fullBtn: SWRippleButton!
     /// 播放暂停按钮: play and pause button
 //    var playerBtn: UIButton!
     var playerBtn: SWRippleButton!
     /// 前一个: previous episode button
-    var previousBtn: UIButton!
+    var previousBtn: SWRippleButton!
     /// 下一个: next episode button
-    var nextBtn: UIButton!
+    var nextBtn: SWRippleButton!
     /// dismiss播放控制器: dismiss viewController button
-    var dismissBtn: UIButton!
+    var dismissBtn: SWRippleButton!
     /// 更多功能按钮: more function button, you need custom the function in the called func
-    var moreBtn: UIButton!
+    var moreBtn: SWRippleButton!
     /// 分享按钮: share button: you need custom the function in the called func
-    var shareBtn: UIButton!
+    var shareBtn: SWRippleButton!
     /// 进度滑竿: episode progress slider
     open var timeSlider: SWTimeSlider!
     /// load progress view
@@ -90,6 +90,17 @@ class SWMaskView: UIView {
     var timer: Timer!
     ///  times of tap maskView
     var tapTime: SWTapTimes = SWTapTimes.zero
+    
+    
+    let playBtnWidth: CGFloat = 44
+    let fullBtnWidth: CGFloat = 44
+    
+    let dismissBtnWidth: CGFloat = 44
+    let previousBtnWidth: CGFloat = 44
+    let nextBtnWidth: CGFloat = 44
+    let moreBtnWidth: CGFloat = 44
+    let shareBtnWidth: CGFloat = 44
+    
     
     let clearImg = UIImage.init(named: "")?.withRenderingMode(.alwaysTemplate)
     let fullImg = UIImage.init(named: "fullscreen_24px_outlined.png")?.withRenderingMode(.alwaysTemplate)
@@ -110,7 +121,9 @@ class SWMaskView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
+//        self.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
+        self.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        
         addNotification()
         setupUI()
         layoutControl()
@@ -238,24 +251,30 @@ extension SWMaskView {
     
     
     func layoutControl() {
-        fullBtn = UIButton.init(type: .custom)
+        fullBtn = SWRippleButton.init(type: .custom)
         fullBtn.setImage(fullImg, for: .normal)
         fullBtn.setImage(fullImg, for: .selected)
         self.addSubview(fullBtn)
         fullBtn.imageView?.tintColor = .white
-        fullBtn.showsTouchWhenHighlighted = true
         fullBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
+        fullBtn.buttonCornerRadius = Float(fullBtnWidth / 2)
+        fullBtn.shadowRippleRadius = Float(fullBtnWidth / 2)
+        fullBtn.rippleColor = .clear
+        fullBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        fullBtn.touchUpAnimationTime = 1.0
         fullBtn.addTarget(self, action: #selector(change_screen_action(sender:)), for: .touchUpInside)
         
-//        playerBtn = UIButton.init(type: .custom)
-        
         playerBtn = SWRippleButton.init()
-        
         playerBtn.setImage(pauseImg, for: .normal)
 //        playerBtn.setImage(pauseImg, for: .selected)
         self.addSubview(playerBtn)
         playerBtn.imageView?.tintColor = .white
-        playerBtn.showsTouchWhenHighlighted = true
+        playerBtn.buttonCornerRadius = Float(playBtnWidth / 2)
+        playerBtn.shadowRippleRadius = Float(playBtnWidth / 2)
+        playerBtn.rippleColor = .clear
+        playerBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        playerBtn.touchUpAnimationTime = 1.0
+        
         playerBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: playerBtn, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint.init(item: playerBtn, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
@@ -263,12 +282,17 @@ extension SWMaskView {
         self.addConstraint(NSLayoutConstraint.init(item: playerBtn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44))
         playerBtn.addTarget(self, action: #selector(play_action(sender:)), for: .touchUpInside)
         
-        previousBtn = UIButton.init(type: .custom)
+        previousBtn = SWRippleButton.init(type: .custom)
         previousBtn.setImage(previousImg, for: .normal)
         previousBtn.setImage(previousImg, for: .selected)
         self.addSubview(previousBtn)
         previousBtn.imageView?.tintColor = .white
-        previousBtn.showsTouchWhenHighlighted = true
+        previousBtn.buttonCornerRadius = Float(previousBtnWidth / 2)
+        previousBtn.shadowRippleRadius = Float(previousBtnWidth / 2)
+        previousBtn.rippleColor = .clear
+        previousBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        previousBtn.touchUpAnimationTime = 1.0
+        
         previousBtn.imageEdgeInsets = UIEdgeInsets.init(top: 3, left: 3, bottom: 3, right: 3)
         previousBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: previousBtn, attribute: .centerX, relatedBy: .equal, toItem: playerBtn, attribute: .centerX, multiplier: 1, constant: -80))
@@ -277,12 +301,16 @@ extension SWMaskView {
         self.addConstraint(NSLayoutConstraint.init(item: previousBtn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44))
         previousBtn.addTarget(self, action: #selector(previous_action(sender:)), for: .touchUpInside)
         
-        nextBtn = UIButton.init(type: .custom)
+        nextBtn = SWRippleButton.init(type: .custom)
         nextBtn.setImage(nextImg, for: .normal)
         nextBtn.setImage(nextImg, for: .selected)
         self.addSubview(nextBtn)
         nextBtn.imageView?.tintColor = .white
-        nextBtn.showsTouchWhenHighlighted = true
+        nextBtn.buttonCornerRadius = Float(nextBtnWidth / 2)
+        nextBtn.shadowRippleRadius = Float(nextBtnWidth / 2)
+        nextBtn.rippleColor = .clear
+        nextBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        nextBtn.touchUpAnimationTime = 1.0
         nextBtn.imageEdgeInsets = UIEdgeInsets.init(top: 3, left: 3, bottom: 3, right: 3)
         nextBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: nextBtn, attribute: .centerX, relatedBy: .equal, toItem: playerBtn, attribute: .centerX, multiplier: 1, constant: 80))
@@ -291,12 +319,16 @@ extension SWMaskView {
         self.addConstraint(NSLayoutConstraint.init(item: nextBtn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44))
         nextBtn.addTarget(self, action: #selector(next_action(sender:)), for: .touchUpInside)
         
-        dismissBtn = UIButton.init(type: .custom)
+        dismissBtn = SWRippleButton.init(type: .custom)
         dismissBtn.setImage(dismissImg, for: .normal)
         dismissBtn.setImage(dismissImg, for: .selected)
         self.addSubview(dismissBtn)
         dismissBtn.imageView?.tintColor = .white
-        dismissBtn.showsTouchWhenHighlighted = true
+        dismissBtn.buttonCornerRadius = Float(dismissBtnWidth / 2)
+        dismissBtn.shadowRippleRadius = Float(dismissBtnWidth / 2)
+        dismissBtn.rippleColor = .clear
+        dismissBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        dismissBtn.touchUpAnimationTime = 1.0
         dismissBtn.imageEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
         dismissBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: dismissBtn, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 5))
@@ -305,22 +337,30 @@ extension SWMaskView {
         self.addConstraint(NSLayoutConstraint.init(item: dismissBtn, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44))
         dismissBtn.addTarget(self, action: #selector(dismiss_action(sender:)), for: .touchUpInside)
         
-        moreBtn = UIButton.init(type: .custom)
+        moreBtn = SWRippleButton.init(type: .custom)
         moreBtn.setImage(moreImg, for: .normal)
         moreBtn.setImage(moreImg, for: .selected)
         self.addSubview(moreBtn)
         moreBtn.imageView?.tintColor = .white
-        moreBtn.showsTouchWhenHighlighted = true
+        moreBtn.buttonCornerRadius = Float(moreBtnWidth / 2)
+        moreBtn.shadowRippleRadius = Float(moreBtnWidth / 2)
+        moreBtn.rippleColor = .clear
+        moreBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        moreBtn.touchUpAnimationTime = 1.0
         moreBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         
         moreBtn.addTarget(self, action: #selector(more_action(sender:)), for: .touchUpInside)
         
-        shareBtn = UIButton.init(type: .custom)
+        shareBtn = SWRippleButton.init(type: .custom)
         shareBtn.setImage(shareImg, for: .normal)
         shareBtn.setImage(shareImg, for: .selected)
         self.addSubview(shareBtn)
         shareBtn.imageView?.tintColor = .white
-        shareBtn.showsTouchWhenHighlighted = true
+        shareBtn.buttonCornerRadius = Float(shareBtnWidth / 2)
+        shareBtn.shadowRippleRadius = Float(shareBtnWidth / 2)
+        shareBtn.rippleColor = .clear
+        shareBtn.rippleBackgroundColor = UIColor.init(white: 0.7, alpha: 0.4)
+        shareBtn.touchUpAnimationTime = 1.0
         shareBtn.imageEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         shareBtn.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(NSLayoutConstraint.init(item: shareBtn, attribute: .right, relatedBy: .equal, toItem: moreBtn, attribute: .left, multiplier: 1, constant: -5))
@@ -571,9 +611,14 @@ extension SWMaskView {
                 let left = NSLayoutConstraint.init(item: timeSlider, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
                 let right = NSLayoutConstraint.init(item: timeSlider, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
                 let bottom = NSLayoutConstraint.init(item: timeSlider, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 14)
-                
                 let constraints = [height, left, right, bottom]
                 self.addConstraints(constraints)
+                
+                /// 另一种布局方式
+//                timeSlider.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
+//                timeSlider.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
+//                timeSlider.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+//                timeSlider.heightAnchor.constraint(equalToConstant: 30).isActive = true
             }
         }
     }
