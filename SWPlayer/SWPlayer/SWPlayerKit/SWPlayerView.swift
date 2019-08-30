@@ -93,6 +93,7 @@ class SWPlayerView: UIView {
         self.player.playedDurationDidChangeHandler = { (played, total) in
 //            print("------===---===\(played)/\(total)")
             self.playerMaskView.timeSlider.value = Float(played/total)
+//            print("time========1111==== \(Float(played/total))")
             self.playerMaskView.currentTimeLabel.text = SWTimer.formatSecondsToString(played)
             self.playerMaskView.totalTimeLabel.text = SWTimer.formatSecondsToString(total)
         }

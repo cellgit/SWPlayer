@@ -18,7 +18,9 @@ var PlayingEpisodeUrl: String = ""
 //let ApiEpisodeUrl3 = "http://221.228.226.5/15/t/s/h/v/tshvhsxwkbjlipfohhamjkraxuknsc/sh.yinyuetai.com/88DC015DB03C829C2126EEBBB5A887CB.mp4"
 //let ApiEpisodeUrl4 = "http://vjs.zencdn.net/v/oceans.mp4"
 
-let ApiEpisodeUrl0 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+
+let ApiEpisodeUrl0 = "http://panm32w98.bkt.clouddn.com/short_video_20190719121123.mp4"
+//let ApiEpisodeUrl0 = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
 /// CCTV-1综合HD
 //let ApiEpisodeUrl0 = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"
 /// CCTV-2财经

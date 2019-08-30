@@ -32,8 +32,14 @@ class PlayerTableViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    /// 控制旋转(横竖屏)动画效果
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil, completion: {_ in
+            UIView.setAnimationsEnabled(true)
+        })
+        // 传递true旋转时有动画
+        UIView.setAnimationsEnabled(true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -61,7 +67,5 @@ class PlayerTableViewController: UIViewController {
         self.view.addSubview(containerView)
         containerView.viewController = self
     }
-    
-    
 }
 

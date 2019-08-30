@@ -116,3 +116,16 @@ extension AppDelegate {
     }
 }
 
+
+
+// 在AppDelegate.m中添加转屏的代理方法
+//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window {
+//    if (self.allowRotation == YES) {
+//        //横屏
+//        return UIInterfaceOrientationMaskLandscape;
+//
+//    }else{
+//        //竖屏
+//        return UIInterfaceOrientationMaskPortrait;
+//    }   
+//}
